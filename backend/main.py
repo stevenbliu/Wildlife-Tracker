@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from database import SessionLocal, engine, Base
 import models, schemas
@@ -229,14 +229,21 @@ def get_nearby_events(
 # TimescaleDB Over time Query
 @app.get("/api/overtime")
 def get_overtime_data(
-    entity_type: str = Query(..., regex="^(herd|family)$"),
+    entity_type: str = Query(..., pattern="^(herd|family)$"),
     entity_id: int = Query(...),
     metrics: str = Query(..., description="Comma separated metrics: location,size,health"),
-    start: datetime = Query(...),
-    end: datetime = Query(...),
+    start: datetime = Query(None),
+    end: datetime = Query(None),
     bucket: str = Query("1 day"),
     db: Session = Depends(get_db),
 ):
+    # Set default time window to last 30 days
+    now = datetime.utcnow()
+    if not end:
+        end = now
+    if not start:
+        start = now - timedelta(days=30)
+
     # Parse requested metrics
     requested_metrics = set(metrics.split(","))
     invalid = requested_metrics - VALID_METRICS.keys()
@@ -258,9 +265,8 @@ def get_overtime_data(
 
     select_clause = ", ".join(select_fields)
 
-    # Build WHERE clause for entity
+    # Build SQL based on entity type
     if entity_type == "herd":
-        # Need to join families to filter by herd_id
         sql = f"""
         SELECT
           family_id,
@@ -274,7 +280,6 @@ def get_overtime_data(
         ORDER BY family_id, bucket
         """
     else:
-        # family query
         sql = f"""
         SELECT
           time_bucket(:bucket, ts) AS bucket,
@@ -286,14 +291,12 @@ def get_overtime_data(
         ORDER BY bucket
         """
 
-    results = db.execute(text(sql), {
-        "entity_id": entity_id,
-        "start": start,
-        "end": end,
-        "bucket": bucket
-    }).fetchall()
+    results = db.execute(
+        text(sql),
+        {"entity_id": entity_id, "start": start, "end": end, "bucket": bucket}
+    ).mappings().all()  # <-- this makes row["bucket"] work
 
-    # Build response dynamically
+    # Build dynamic response
     response = []
     for row in results:
         entry = {"time_bucket": row["bucket"]}
@@ -303,9 +306,9 @@ def get_overtime_data(
             entry["avg_lat"] = row["avg_lat"]
             entry["avg_lng"] = row["avg_lng"]
         if "size" in requested_metrics:
-            entry["avg_size"] = row.get("avg_size")
+            entry["avg_size"] = row["avg_size"]
         if "health" in requested_metrics:
-            entry["avg_health"] = row.get("avg_health")
+            entry["avg_health"] = row["avg_health"]
         response.append(entry)
 
     return response

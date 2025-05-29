@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { fetchHerds } from '../api/wildlifeApi';
+// src/components/HerdSelector.tsx
+import React from 'react';
 
-type Props = {
-  onSelect: (herdId: string) => void;
-};
+interface HerdSelectorProps {
+  selected: string | null;
+  onChange: (herd: string | null) => void;
+}
 
-export default function HerdSelector({ onSelect }: Props) {
-  const [herds, setHerds] = useState<{ id: string; name: string }[]>([]);
+const herds = ['Elephants', 'Zebras', 'Lions'];
 
-  useEffect(() => {
-    fetchHerds().then(setHerds);
-  }, []);
-
-  return (
-    <select onChange={e => onSelect(e.target.value)} defaultValue="">
-      <option value="" disabled>
-        Select a Herd
-      </option>
-      {herds.map(herd => (
-        <option key={herd.id} value={herd.id}>
-          {herd.name}
+export const HerdSelector = ({ selected, onChange }: HerdSelectorProps) => (
+  <div>
+    <label className="block text-sm font-medium">Herd</label>
+    <select
+      className="mt-1 block w-full border-gray-300 rounded"
+      value={selected || ''}
+      onChange={(e) => onChange(e.target.value || null)}
+    >
+      <option value="">-- Select Herd --</option>
+      {herds.map((herd) => (
+        <option key={herd} value={herd}>
+          {herd}
         </option>
       ))}
     </select>
-  );
-}
+  </div>
+);

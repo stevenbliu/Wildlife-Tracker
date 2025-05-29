@@ -101,6 +101,9 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true  # helps with file watching on Docker volumes
+    # volumes:
+      - .:/frontend/app       # Mount local code into container
+
   locust:
     build: 
       context: ./locust

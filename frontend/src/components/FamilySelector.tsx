@@ -1,32 +1,38 @@
-import React, { useEffect, useState } from 'react';
-import { fetchFamilies, fetchFamiliesByHerd } from '../api/wildlifeApi';
+// src/components/FamilySelector.tsx
+import React from 'react';
 
-type Props = {
-  herdId?: string;
-  onSelect: (familyId: string) => void;
+interface FamilySelectorProps {
+  herd: string | null;
+  selected: string | null;
+  onChange: (family: string | null) => void;
+}
+
+// Dummy families per herd
+const familyData: Record<string, string[]> = {
+  Elephants: ['Alpha', 'Bravo'],
+  Zebras: ['Stripey', 'Dash'],
+  Lions: ['Simba', 'Nala'],
 };
 
-export default function FamilySelector({ herdId, onSelect }: Props) {
-  const [families, setFamilies] = useState<{ id: string; name: string }[]>([]);
-
-  useEffect(() => {
-    if (herdId) {
-      fetchFamiliesByHerd(herdId).then(setFamilies);
-    } else {
-      fetchFamilies().then(setFamilies);
-    }
-  }, [herdId]);
+export const FamilySelector = ({ herd, selected, onChange }: FamilySelectorProps) => {
+  const families = herd ? familyData[herd] || [] : [];
 
   return (
-    <select onChange={e => onSelect(e.target.value)} defaultValue="">
-      <option value="" disabled>
-        Select a Family
-      </option>
-      {families.map(family => (
-        <option key={family.id} value={family.id}>
-          {family.name}
-        </option>
-      ))}
-    </select>
+    <div>
+      <label className="block text-sm font-medium">Family</label>
+      <select
+        className="mt-1 block w-full border-gray-300 rounded"
+        value={selected || ''}
+        onChange={(e) => onChange(e.target.value || null)}
+        disabled={!herd}
+      >
+        <option value="">-- Select Family --</option>
+        {families.map((family) => (
+          <option key={family} value={family}>
+            {family}
+          </option>
+        ))}
+      </select>
+    </div>
   );
-}
+};

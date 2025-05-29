@@ -4,6 +4,15 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 DATABASE_URL = "postgresql://user:password@postgres:5432/wildlife"
 
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+# Exta parameters to consider:
+# engine = create_engine(
+#     DATABASE_URL,
+#     pool_pre_ping=True,  # makes sure connections are still alive before using them, which helps prevent errors with stale connections.
+#     pool_size=10,        # max persistent connections in pool
+#     max_overflow=20,     # extra connections allowed beyond pool_size
+#     pool_timeout=30      # seconds to wait when no connections available
+# )
+
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
