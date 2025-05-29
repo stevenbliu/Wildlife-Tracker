@@ -2,7 +2,9 @@
 
 services:
   postgres:
-    image: timescale/timescaledb:latest-pg14
+    # Postges with TimescaleDB extension and PostGIS
+    # Using TimescaleDB for time-series data and PostGIS for geospatial data
+    image: timescale/timescaledb-ha:pg15.13-ts2.20.1
     container_name: wildlife_postgres
     environment:
       POSTGRES_USER: user
@@ -10,6 +12,8 @@ services:
       POSTGRES_DB: wildlife
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d  # mount init script directory for custom initialization
+
     ports:
       - "5432:5432"
     healthcheck:

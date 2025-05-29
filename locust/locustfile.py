@@ -10,9 +10,8 @@ class WildlifeUser(HttpUser):
     herd_id = None
     family_id = None
 
-    # @task(2)
-    # def asd(self):
-    #     print("Starting WildlifeUser session...2")
+    # def on_start(self):
+    #     print("Starting WildlifeUser session...")
     #     # Register a herd
     #     species_name = f"Herd_{random.randint(1, 10000)}"
     #     description = f"{random.randint(1, 10000)}"  # Simulate herd ID
@@ -38,21 +37,20 @@ class WildlifeUser(HttpUser):
 
     @task(1)
     def send_herd(self):
-        # print("Creatinng herd...")
         herd = {
             "species_name": f"Herd_{random.randint(1, 10000)}",
             "description": f"{random.randint(1, 10000)}",
         }
         response = self.client.post("/api/herds", json=herd)
-        self.herd_id = response.json().get("id")
         if response.status_code != 201:
             print("Failed to create herd:", response.status_code, response.text)
             return
-        # print("Herd created with ID:", self.herd_id)
+        
+        self.herd_id = response.json().get("id")
+
 
     @task(2)
     def send_family(self):
-        # print("Creating family...")
         family = {
             "friendly_name": f"Family_{random.randint(1, 10000)}",
             "herd_id": self.herd_id,
@@ -63,7 +61,6 @@ class WildlifeUser(HttpUser):
             return
 
         self.family_id = response.json().get("id")
-        # print("Family created with ID:", response.json().get("id"))
 
     @task(4)
     def send_observation(self):

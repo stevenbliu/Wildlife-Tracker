@@ -1,4 +1,7 @@
-fastapi 
-uvicorn 
-sqlalchemy 
-psycopg2-binary
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+SQLAlchemy==2.0.19
+psycopg2-binary==2.9.6
+python-dotenv==1.0.0
+geoalchemy2
+shapely
