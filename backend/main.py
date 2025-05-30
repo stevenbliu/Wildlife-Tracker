@@ -5,15 +5,26 @@ from datetime import datetime, timedelta
 
 from database import SessionLocal, engine, Base
 import models, schemas
+from fastapi.middleware.cors import CORSMiddleware
 
 from geoalchemy2.shape import from_shape
 from shapely.geometry import Point
+from typing import List
 
 # Create tables (in prod, use Alembic migrations)
 # Base.metadata.drop_all(bind=engine)  # Remove this in production
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="WildlifeTracker API")
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # or ["*"] for all origins (less secure)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define valid metrics for the /overtime endpoint
 VALID_METRICS = {
@@ -75,6 +86,11 @@ def get_herd(herd_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Herd not found")
     return herd
 
+@app.get("/api/herds", response_model=List[schemas.Herd])
+def get_all_herds(db: Session = Depends(get_db)):
+    herds = db.query(models.Herd).all()
+    return herds
+
 # Family Endpoints
 @app.post("/api/families", response_model=schemas.Family, status_code=status.HTTP_201_CREATED)
 def create_family(family: schemas.FamilyCreate, db: Session = Depends(get_db)):
@@ -95,6 +111,21 @@ def get_family(family_id: int, db: Session = Depends(get_db)):
     if not family:
         raise HTTPException(status_code=404, detail="Family not found")
     return family
+
+@app.get("/api/families", response_model=List[schemas.Family])
+def get_all_families(db: Session = Depends(get_db)):
+    families = db.query(models.Family).all()
+    return families
+
+@app.get("/api/families/by-herd/{herd_id}", response_model=List[schemas.Family])
+def get_families_by_herd(herd_id: int, db: Session = Depends(get_db)):
+    # Optional: check if herd exists first
+    herd = db.query(models.Herd).filter(models.Herd.id == herd_id).first()
+    if not herd:
+        raise HTTPException(status_code=404, detail="Herd not found")
+
+    families = db.query(models.Family).filter(models.Family.herd_id == herd_id).all()
+    return families
 
 # Observation Endpoints
 @app.post("/api/families/{family_id}/observations", status_code=status.HTTP_201_CREATED)
