@@ -2,18 +2,30 @@
 
 System Design:
 
-    Backend API - Python, FastAPI, PostgreSQL (TimescaleDB), Kafka, Elasticsearch	
+    Backend API - Python, FastAPI, SQLAlchemy
         Ingest data, store observations, search events
-    Frontend - React + Leaflet.js	(Avoided Mapbox because Leaflet is free and open-source)
+    Frontend - React/Vite + Leaflet.js	(Avoided Mapbox because Leaflet is free and open-source)
         GUI for rangers with map visualizations
-    Data Storage - PostgreSQL (TimescaleDB)	
-        Time-series tracking of observations
-    Search Index - Elasticsearch	
-        Fast geospatial/event queries
-    Messaging - Kafka	
-        Decoupled ingestion pipeline for scalability
+    Data Storage - PostgreSQL (TimescaleDB + PostGIS)	
+        Fast time-series tracking of observations
+        Fast geospatial queries for nearby events and observations
     DevOps - Docker + Docker Compose	
         Containerized local development
+    Testing - Locust
+        Load testing to simulate data
+
+    TODO:
+        Kafka
+            - to mange data ingestion to prevent PostgreSQL from overloading
+        ElasticSearch 
+            - optimize event/desription searching
+        Cassandra
+            - if writes are too much, then we might need to switch DBs
+        CI/CD - GitHub Actions
+            - automate unit/integration tests
+            - e2e tests on staging environments
+            - automatic deployments
+        
 
 
 API Endpoints:
@@ -37,3 +49,8 @@ Data Models:
     Event:
     id (PK), family_id (FK), description, latitude, longitude, ts, metadata
 
+
+
+## FUTURE ##
+Data Migrations:
+    - 

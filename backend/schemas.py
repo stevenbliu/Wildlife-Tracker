@@ -51,6 +51,9 @@ class Event(EventCreate):
     id: int
     family_id: int
     ts: datetime
+    description: str
+    lat: float
+    lng: float
 
     class Config:
         orm_mode = True
@@ -65,8 +68,13 @@ class ObservationCreate(BaseModel):
 
 
 class Observation(ObservationCreate):
+    id: int
     family_id: int
     ts: datetime
+    lat: float
+    lng: float
+    size: int
+    health: int
 
     class Config:
         orm_mode = True

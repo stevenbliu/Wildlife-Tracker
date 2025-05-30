@@ -71,6 +71,8 @@ class WildlifeUser(HttpUser):
             "health_rating": random.randint(1, 10),
             "ts": datetime.utcnow().isoformat(),
         }
+        
+        self.family_id = 1 # For testing purposes, using a fixed family_id
         response = self.client.post(
             f"/api/families/{self.family_id}/observations", json=obs
         )
@@ -94,6 +96,8 @@ class WildlifeUser(HttpUser):
             ),
             "ts": datetime.utcnow().isoformat(),
         }
+        
+        self.family_id = 1  # For testing purposes, using a fixed family_id
         response = self.client.post(
             f"/api/families/{self.family_id}/events", json=event
         )

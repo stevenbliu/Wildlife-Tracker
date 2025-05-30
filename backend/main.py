@@ -166,7 +166,7 @@ def create_event(family_id: int, event: schemas.EventCreate, db: Session = Depen
 
 # Queries for GUI
 
-@app.get("/api/herds/{herd_id}/observations")
+@app.get("/api/herds/{herd_id}/observations", response_model=List[schemas.Observation])
 def get_herd_observations(herd_id: int, start: datetime = None, end: datetime = None, db: Session = Depends(get_db)):
     query = db.query(models.Observation).join(models.Family).filter(models.Family.herd_id == herd_id)
     if start:
@@ -175,7 +175,7 @@ def get_herd_observations(herd_id: int, start: datetime = None, end: datetime = 
         query = query.filter(models.Observation.ts <= end)
     return query.all()
 
-@app.get("/api/families/{family_id}/observations")
+@app.get("/api/families/{family_id}/observations", response_model=List[schemas.Observation])
 def get_family_observations(family_id: int, start: datetime = None, end: datetime = None, db: Session = Depends(get_db)):
     query = db.query(models.Observation).filter(models.Observation.family_id == family_id)
     if start:
@@ -296,31 +296,69 @@ def get_overtime_data(
 
     select_clause = ", ".join(select_fields)
 
-    # Build SQL based on entity type
+    # # Build SQL based on entity type
+    # if entity_type == "herd":
+    #     sql = f"""
+    #     SELECT
+    #       family_id,
+    #       time_bucket(:bucket, ts) AS bucket,
+    #       {select_clause}
+    #     FROM observations
+    #     JOIN families ON observations.family_id = families.id
+    #     WHERE families.herd_id = :entity_id
+    #       AND ts BETWEEN :start AND :end
+    #     GROUP BY family_id, bucket
+    #     ORDER BY family_id, bucket
+    #     """
+    # else:
+    #     sql = f"""
+    #     SELECT
+    #       family_id,
+    #       time_bucket(:bucket, ts) AS bucket,
+    #       {select_clause}
+    #     FROM observations
+    #     WHERE family_id = :entity_id
+    #       AND ts BETWEEN :start AND :end
+    #     GROUP BY family_id, bucket
+    #     ORDER BY bucket
+    #     """
+    
     if entity_type == "herd":
         sql = f"""
-        SELECT
-          family_id,
-          time_bucket(:bucket, ts) AS bucket,
-          {select_clause}
-        FROM observations
-        JOIN families ON observations.family_id = families.id
-        WHERE families.herd_id = :entity_id
-          AND ts BETWEEN :start AND :end
-        GROUP BY family_id, bucket
-        ORDER BY family_id, bucket
-        """
+            SELECT
+            o.family_id,
+            f.friendly_name AS friendly_name,
+            f.herd_id,
+            h.species_name,
+            time_bucket(:bucket, o.ts) AS bucket,
+            {select_clause}
+            FROM observations o
+            JOIN families f ON o.family_id = f.id
+            JOIN herds h ON f.herd_id = h.id
+            WHERE f.herd_id = :entity_id
+            AND o.ts BETWEEN :start AND :end
+            GROUP BY o.family_id, f.friendly_name, f.herd_id, h.species_name, bucket
+            ORDER BY o.family_id, bucket
+            """
+    
     else:
         sql = f"""
-        SELECT
-          time_bucket(:bucket, ts) AS bucket,
-          {select_clause}
-        FROM observations
-        WHERE family_id = :entity_id
-          AND ts BETWEEN :start AND :end
-        GROUP BY bucket
-        ORDER BY bucket
-        """
+            SELECT
+            o.family_id,
+            f.friendly_name AS friendly_name,
+            f.herd_id,
+            h.species_name,
+            time_bucket(:bucket, o.ts) AS bucket,
+            {select_clause}
+            FROM observations o
+            JOIN families f ON o.family_id = f.id
+            JOIN herds h ON f.herd_id = h.id
+            WHERE o.family_id = :entity_id
+            AND o.ts BETWEEN :start AND :end
+            GROUP BY o.family_id, f.friendly_name, f.herd_id, h.species_name, bucket
+            ORDER BY bucket
+         """
+
 
     results = db.execute(
         text(sql),
@@ -330,9 +368,21 @@ def get_overtime_data(
     # Build dynamic response
     response = []
     for row in results:
-        entry = {"time_bucket": row["bucket"]}
-        if entity_type == "herd":
-            entry["family_id"] = row["family_id"]
+        # entry = {"time_bucket": row["bucket"]}
+        # if entity_type == "herd":
+        #     entry["herd_id"] = entity_id
+
+        # entry["family_id"] = row["family_id"]
+        
+        entry = {
+    "time_bucket": row["bucket"],
+    "family_id": row["family_id"],
+    "friendly_name": row["friendly_name"],
+    "herd_id": row["herd_id"],
+    "species_name": row["species_name"]
+}
+
+        
         if "location" in requested_metrics:
             entry["avg_lat"] = row["avg_lat"]
             entry["avg_lng"] = row["avg_lng"]

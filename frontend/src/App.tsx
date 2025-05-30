@@ -110,7 +110,7 @@ const App = () => {
             onRemoveItem={(item) => dispatch({ type: "REMOVE_ITEM", payload: item.id })}
             onClearAll={() => dispatch({ type: "CLEAR_ALL_ITEMS" })}
           />
-          
+
           <LocationQueryPanel location={locationQuery} time={time} />
         </aside>
 
@@ -129,6 +129,7 @@ const App = () => {
 
       <footer className="app-footer">
         {/* <FamilyStatsChart family={selectedFamily} time={time} /> */}
+        Placeholder for Tables and Charts etc.
       </footer>
 
 
