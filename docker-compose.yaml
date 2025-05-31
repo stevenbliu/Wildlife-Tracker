@@ -13,6 +13,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./init-scripts:/docker-entrypoint-initdb.d  # mount init script directory for custom initialization
+    restart: always
 
     ports:
       - "5432:5432"
