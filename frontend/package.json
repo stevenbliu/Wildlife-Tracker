@@ -11,17 +11,24 @@
     "clean": "rm -rf dist node_modules"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^5.17.1",
     "axios": "^1.4.0",
     "leaflet": "^1.9.4",
-    "@types/leaflet": "^1.9.4",
+    "leaflet-draw": "^1.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
-    "recharts": "^2.6.2"
+    "react-leaflet-draw": "^0.20.6",
+    "react-select": "^5.10.1",
+    "recharts": "^2.15.3"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.4",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/recharts": "^1.8.29",
     "@vitejs/plugin-react": "^4.0.0",
     "typescript": "^5.3.3",
     "vite": "^5.0.0"

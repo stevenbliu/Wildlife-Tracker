@@ -38,21 +38,20 @@ class WildlifeUser(HttpUser):
     @task(1)
     def send_herd(self):
         herd = {
-            "species_name": f"Herd_{random.randint(1, 10000)}",
+            "species_name": f"Herd_{random.randint(1, 3)}",
             "description": f"{random.randint(1, 10000)}",
         }
         response = self.client.post("/api/herds", json=herd)
         if response.status_code != 201:
             print("Failed to create herd:", response.status_code, response.text)
             return
-        
+
         self.herd_id = response.json().get("id")
 
-
-    @task(2)
+    @task(1)
     def send_family(self):
         family = {
-            "friendly_name": f"Family_{random.randint(1, 10000)}",
+            "friendly_name": f"Family_{random.randint(1, 3)}",
             "herd_id": self.herd_id,
         }
         response = self.client.post("/api/families", json=family)
@@ -71,8 +70,9 @@ class WildlifeUser(HttpUser):
             "health_rating": random.randint(1, 10),
             "ts": datetime.utcnow().isoformat(),
         }
-        
-        self.family_id = 1 # For testing purposes, using a fixed family_id
+
+        # self.family_id = 1  # For testing purposes, using a fixed family_id
+        self.family_id = random.choice([1, 16, 15, 19, 24])
         response = self.client.post(
             f"/api/families/{self.family_id}/observations", json=obs
         )
@@ -96,8 +96,9 @@ class WildlifeUser(HttpUser):
             ),
             "ts": datetime.utcnow().isoformat(),
         }
-        
-        self.family_id = 1  # For testing purposes, using a fixed family_id
+
+        # self.family_id = 1  # For testing purposes, using a fixed family_id
+        self.family_id = random.choice([1, 16, 15, 19, 24])
         response = self.client.post(
             f"/api/families/{self.family_id}/events", json=event
         )

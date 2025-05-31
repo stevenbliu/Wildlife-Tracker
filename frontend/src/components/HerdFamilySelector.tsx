@@ -36,17 +36,9 @@ export const HerdFamilySelector: React.FC<HerdFamilySelectorProps> = ({
                 <select
                     value={selectedHerd?.id || ''}
                     onChange={e => {
-                        // console.log('Selected herd:', selectedHerd);
-                        console.log('Herds:', herds);
-
-                        // console.log('Selected herd ID:', e.target.value);   
                         const herd_id = Number(e.target.value);
-                        console.log('Selected herd ID:', herd_id);
                         const herd = herds.find(h => h.id === herd_id) || null;
-                        console.log('herd_id:', herd_id);
-                        console.log('Matched herd:', herd);
                         onHerdSelect(herd);
-                        console.log('Selected herd:', herd);
 
                     }}
                 >
@@ -66,12 +58,8 @@ export const HerdFamilySelector: React.FC<HerdFamilySelectorProps> = ({
                 <select
                     value={selectedFamily?.id || ''}
                     onChange={e => {
-                        console.log('Selected family:', selectedFamily);
                         const familyId = Number(e.target.value);
-                        console.log('Selected family ID:', familyId);
                         const family = families.find(f => f.id === familyId) || null;
-                        console.log('Found family:', family);
-                        console.log('Families:', families);
                         onFamilySelect(family);
                     }}
                 >
