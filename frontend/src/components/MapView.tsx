@@ -30,7 +30,7 @@ interface MapViewProps {
   selectedItems: Item[];
   filteredFamilies: LocationData[];
   onLocationQuery: (coords: [number, number]) => void;
-  onFilteredFamiliesChange: (newFiltered: LocationData[]) => void;  // New callback prop
+  onFilteredFamiliesChange: (newFiltered: LocationData[]) => void;
 }
 
 function hashStringToColor(str: string): string {
@@ -71,15 +71,26 @@ function createColoredIcon(color: string, label: number) {
   });
 }
 
+interface NearbyEvent {
+  id: number;
+  family_id: number;
+  description: string;
+  latitude: number;
+  longitude: number;
+  ts: string;
+  event_metadata: any;
+}
+
 export const MapView = ({
   locationData,
   selectedItems,
   filteredFamilies,
   onLocationQuery,
-  onFilteredFamiliesChange,  // receive callback as prop
+  onFilteredFamiliesChange,
 }: MapViewProps) => {
   const [queryPoint, setQueryPoint] = React.useState<[number, number] | null>(null);
   const [nearbyFamilies, setNearbyFamilies] = React.useState<LocationData[]>([]);
+  const [nearbyEvents, setNearbyEvents] = React.useState<NearbyEvent[]>([]);  // NEW: nearby events
 
   useMapEvents({
     click(e) {
@@ -169,25 +180,36 @@ export const MapView = ({
       const radiusKm = radiusMeters / 1000;
 
       try {
+        // Fetch nearby families
         const response = await fetch(
           `http://localhost:8000/api/nearby/families?lat=${center.lat}&lng=${center.lng}&radius_km=${radiusKm}`
         );
-        const data: LocationData[] = await response.json();
+        var data: LocationData[] = await response.json();
+        data = nearbyFamilies.concat(data)
         setNearbyFamilies(data);
-
-        // IMPORTANT: Notify parent to update filteredFamilies in reducer state
         onFilteredFamiliesChange(data);
+
+        // Fetch nearby events (NEW)
+        const eventsResponse = await fetch(
+          `http://localhost:8000/api/events/nearby?lat=${center.lat}&lng=${center.lng}&radius_km=${radiusKm}`
+        );
+        var eventsData: NearbyEvent[] = await eventsResponse.json();
+        eventsData = nearbyEvents.concat(eventsData);
+        setNearbyEvents(eventsData);
+
       } catch (error) {
-        console.error('Failed to fetch nearby families:', error);
+        console.error('Failed to fetch nearby data:', error);
       }
     }
   };
 
   const handleShapeDeleted = () => {
     setNearbyFamilies([]);
+    setNearbyEvents([]);  // Also clear events on delete
     onFilteredFamiliesChange([]);
   };
 
+  // Markers for nearby families
   const nearbyMarkers = nearbyFamilies.map((loc, idx) => (
     loc.avg_lat !== undefined &&
     loc.avg_lng !== undefined && (
@@ -207,13 +229,29 @@ export const MapView = ({
     )
   ));
 
+  // Markers for nearby events (NEW)
+  const nearbyEventMarkers = nearbyEvents.map((event) => (
+    <Marker
+      key={`event-${event.id}`}
+      position={[event.latitude, event.longitude]}
+      icon={createColoredIcon('purple', 'E')}  // Different color and no label for events
+    >
+      <Popup>
+        <b>Event</b> <br />
+        {event.description} <br />
+        Family ID: {event.family_id} <br />
+        Date: {new Date(event.ts).toLocaleString()}
+      </Popup>
+    </Marker>
+  ));
+
   return (
     <>
       <FeatureGroup>
         <EditControl
           position="topright"
           onCreated={handleShapeCreated}
-          onDeleted={handleShapeDeleted}   // <-- Add this
+          onDeleted={handleShapeDeleted}
           draw={{
             rectangle: false,
             polygon: false,
@@ -233,6 +271,7 @@ export const MapView = ({
       {markers}
       {polylines}
       {nearbyMarkers}
+      {nearbyEventMarkers} {/* New event markers */}
 
       {queryPoint && (
         <CircleMarker center={queryPoint} radius={10} pathOptions={{ color: 'red' }}>

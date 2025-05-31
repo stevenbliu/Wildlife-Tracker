@@ -142,6 +142,9 @@ const App = () => {
   }));
 
   const timeBucketOptions = [
+    { value: '.5sec', label: '.5 second' },
+    { value: '1sec', label: '1 second' },
+    { value: '30sec', label: '30 seconds' },
     { value: '1min', label: '1 Minute' },
     { value: '5min', label: '5 Minutes' },
     { value: '15min', label: '15 Minutes' },
