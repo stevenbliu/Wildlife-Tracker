@@ -64,7 +64,7 @@ A full-stack system for tracking wildlife herds and families, visualizing their 
 
 1. **Clone the repository:**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/stevenbliu/Gridware-Take-Home-Exercise-Wildlife.git
    cd Gridware-Take-Home-Exercise-Wildlife
    ```
 
