@@ -23,33 +23,28 @@ router = APIRouter(prefix="/api/herds", tags=["Herds"])
 @router.post("", response_model=schemas.Herd, status_code=status.HTTP_201_CREATED)
 def create_herd(herd: schemas.HerdCreate, db: Session = Depends(get_db)):
     """
-    Create a new herd.
+    Create a new herd. If a herd with the same species_name already exists, do not add it.
 
     :param herd: Herd creation data.
     :param db: Database session.
     :return: The created Herd object.
+    :raises HTTPException: If a herd with the same species_name already exists.
     """
+    existing_herd = (
+        db.query(models.Herd)
+        .filter(models.Herd.species_name == herd.species_name)
+        .first()
+    )
+    if existing_herd:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Herd with species_name '{herd.species_name}' already exists.",
+        )
     db_herd = models.Herd(**herd.dict())
     db.add(db_herd)
     db.commit()
     db.refresh(db_herd)
     return db_herd
-
-
-@router.get("{herd_id}", response_model=schemas.Herd)
-def get_herd(herd_id: int, db: Session = Depends(get_db)):
-    """
-    Retrieve a herd by its ID.
-
-    :param herd_id: The ID of the herd to retrieve.
-    :param db: Database session.
-    :return: The Herd object if found.
-    :raises HTTPException: If the herd is not found.
-    """
-    herd = db.query(models.Herd).filter(models.Herd.id == herd_id).first()
-    if not herd:
-        raise HTTPException(status_code=404, detail="Herd not found")
-    return herd
 
 
 @router.get("", response_model=List[schemas.Herd])

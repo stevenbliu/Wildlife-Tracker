@@ -64,12 +64,12 @@ def get_family_metrics(
 @router.post("", response_model=schemas.Family, status_code=status.HTTP_201_CREATED)
 def create_family(family: schemas.FamilyCreate, db: Session = Depends(get_db)):
     """
-    Create a new family.
+    Create a new family. If a family with the same friendly_name already exists, do not add it.
 
     :param family: Family creation data.
     :param db: Database session.
     :return: The created Family object.
-    :raises HTTPException: If herd_id is missing or herd does not exist.
+    :raises HTTPException: If herd_id is missing, herd does not exist, or family name already exists.
     """
     if family.herd_id is None:
         raise HTTPException(
@@ -78,6 +78,12 @@ def create_family(family: schemas.FamilyCreate, db: Session = Depends(get_db)):
     herd = db.query(models.Herd).filter(models.Herd.id == family.herd_id).first()
     if not herd:
         raise HTTPException(status_code=404, detail="Herd not found")
+    existing_family = db.query(models.Family).filter(models.Family.friendly_name == family.friendly_name).first()
+    if existing_family:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Family with friendly_name '{family.friendly_name}' already exists."
+        )
     db_family = models.Family(**family.dict())
     db.add(db_family)
     db.commit()

@@ -38,7 +38,7 @@ class Herd(Base):
 
     __tablename__ = "herds"
     id = Column(Integer, primary_key=True, index=True)
-    species_name = Column(String, nullable=False)
+    species_name = Column(String, nullable=False, unique=True)
     description = Column(String)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -60,7 +60,7 @@ class Family(Base):
     __tablename__ = "families"
     id = Column(Integer, primary_key=True, index=True)
     herd_id = Column(Integer, ForeignKey("herds.id"), nullable=False)
-    friendly_name = Column(String, nullable=False)
+    friendly_name = Column(String, nullable=False, unique=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     herd = relationship("Herd", back_populates="families")

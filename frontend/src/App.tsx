@@ -182,14 +182,12 @@ const App = () => {
         </main>
       </div>
 
-      <footer className="app-footer">
         <FamilyMetricsChart
           normalizedData={normalizedData}
           selectedFamilies={selectedFamilies}
           colorMap={colorMap}
           metrics={metrics}
         />
-      </footer>
 
     </div>
   );
