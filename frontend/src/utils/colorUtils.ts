@@ -29,7 +29,6 @@ export function generateColorMap<T extends { value: string | number }>(
  */
 export function createColoredIcon(family_id: number, index: number): L.DivIcon {
   const color = getColor(family_id);
-  console.log(`Creating icon for family_id ${family_id} with color ${color}`);
 
   return L.divIcon({
     className: "custom-colored-icon",

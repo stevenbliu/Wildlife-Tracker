@@ -13,6 +13,7 @@ import L from 'leaflet';
 import { Item } from '../types';
 import 'leaflet-draw/dist/leaflet.draw.css';
 import { getColor, createColoredIcon } from '../utils/colorUtils';
+import { fetchNearbyFamilies, fetchNearbyEvents } from '../api/api';
 
 interface LocationData {
   family_id: number;
@@ -33,45 +34,6 @@ interface MapViewProps {
   onLocationQuery: (coords: [number, number]) => void;
   onFilteredFamiliesChange: (newFiltered: LocationData[]) => void;
 }
-
-// function hashStringToColor(str: string): string {
-//   let hash = 0;
-//   for (let i = 0; i < str.length; i++) {
-//     hash = str.charCodeAt(i) + ((hash << 5) - hash);
-//     hash = hash & hash;
-//   }
-//   const hue = Math.abs(hash) % 360;
-//   return `hsl(${hue}, 70%, 50%)`;
-// }
-
-// function getColorForFamily(familyId: number): string {
-//   return hashStringToColor(familyId.toString());
-// }
-
-// function createColoredIcon(color: string, label: number) {
-//   return L.divIcon({
-//     className: 'custom-marker',
-//     html: `<div style="
-//       background-color: ${color};
-//       color: white;
-//       font-weight: bold;
-//       font-size: 12px;
-//       line-height: 16px;
-//       width: 20px;
-//       height: 20px;
-//       border-radius: 50%;
-//       border: 2px solid white;
-//       text-align: center;
-//       box-shadow: 0 0 2px rgba(0,0,0,0.5);
-//       user-select:none;
-//       ">
-//       ${label}
-//     </div>`,
-//     iconSize: [20, 20],
-//     iconAnchor: [10, 10],
-//   });
-// }
-
 interface NearbyEvent {
   id: number;
   family_id: number;
@@ -82,27 +44,7 @@ interface NearbyEvent {
   event_metadata: any;
 }
 
-/**
- * MapView component displays wildlife family and herd locations on an interactive map,
- * allowing users to visualize movement, select specific families or herds, and query for
- * nearby families and events using map interactions.
- *
- * Features:
- * - Renders markers and polylines for families and herds based on filtered selection.
- * - Allows users to click on the map to set a query point and trigger a location query callback.
- * - Supports drawing a circle to search for nearby families and events, displaying results as markers.
- * - Handles selection and filtering of families and herds, updating the map accordingly.
- * - Provides popups with detailed information for each marker, including family, species, date, size, and health.
- * - Notifies parent components of changes to filtered families via callback.
- *
- * @param locationData - Array of location data objects representing wildlife families and herds.
- * @param selectedItems - Array of selected items (families or herds) with active state.
- * @param filteredFamilies - Array of currently filtered family location data.
- * @param onLocationQuery - Callback invoked when a user queries a location on the map.
- * @param onFilteredFamiliesChange - Callback invoked when the set of filtered families changes.
- *
- * @returns A React component rendering the interactive map with markers, polylines, and query features.
- */
+
 export const MapView = ({
   locationData,
   selectedItems,
@@ -209,19 +151,13 @@ export const MapView = ({
 
       try {
         // Fetch nearby families
-        const response = await fetch(
-          `http://localhost:8000/api/nearby/families?lat=${center.lat}&lng=${center.lng}&radius_km=${radiusKm}`
-        );
-        var data: LocationData[] = await response.json();
-        data = nearbyFamilies.concat(data)
+        let data = await fetchNearbyFamilies(center.lat, center.lng, radiusKm);
+        data = nearbyFamilies.concat(data);
         setNearbyFamilies(data);
         onFilteredFamiliesChange(data);
 
-        // Fetch nearby events (NEW)
-        const eventsResponse = await fetch(
-          `http://localhost:8000/api/events/nearby?lat=${center.lat}&lng=${center.lng}&radius_km=${radiusKm}`
-        );
-        var eventsData: NearbyEvent[] = await eventsResponse.json();
+        // Fetch nearby events
+        let eventsData = await fetchNearbyEvents(center.lat, center.lng, radiusKm);
         eventsData = nearbyEvents.concat(eventsData);
         setNearbyEvents(eventsData);
 
@@ -268,6 +204,9 @@ export const MapView = ({
         <b>Event</b> <br />
         {event.description} <br />
         Family ID: {event.family_id} <br />
+        Family Name: {filteredFamilies.find(f => f.family_id === event.family_id)?.friendly_name || 'Requires Query Update'} <br />
+        Herd ID: {event.event_metadata?.herd_id || 'N/A'} <br />
+        Species Name: {filteredFamilies.find(f => f.family_id === event.family_id)?.species_name || 'Requires Query Update'} <br />
         Date: {new Date(event.ts).toLocaleString()}
       </Popup>
     </Marker>
@@ -277,7 +216,7 @@ export const MapView = ({
     <>
       <FeatureGroup>
         <EditControl
-          position="topright"
+          position="bottomleft"
           onCreated={handleShapeCreated}
           onDeleted={handleShapeDeleted}
           draw={{

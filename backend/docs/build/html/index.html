@@ -1,0 +1,527 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wildlife Tracker API documentation &mdash; Wildlife Tracker API 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e390f2d4"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Wildlife Tracker API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Wildlife Tracker API documentation</a><ul>
+<li><a class="reference internal" href="#schemas.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Event.Config"><code class="docutils literal notranslate"><span class="pre">Event.Config</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Event.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">Event.Config.orm_mode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Event.description"><code class="docutils literal notranslate"><span class="pre">Event.description</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.family_id"><code class="docutils literal notranslate"><span class="pre">Event.family_id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.id"><code class="docutils literal notranslate"><span class="pre">Event.id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.lat"><code class="docutils literal notranslate"><span class="pre">Event.lat</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.lng"><code class="docutils literal notranslate"><span class="pre">Event.lng</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.model_config"><code class="docutils literal notranslate"><span class="pre">Event.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Event.ts"><code class="docutils literal notranslate"><span class="pre">Event.ts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.EventCreate"><code class="docutils literal notranslate"><span class="pre">EventCreate</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.EventCreate.description"><code class="docutils literal notranslate"><span class="pre">EventCreate.description</span></code></a></li>
+<li><a class="reference internal" href="#schemas.EventCreate.latitude"><code class="docutils literal notranslate"><span class="pre">EventCreate.latitude</span></code></a></li>
+<li><a class="reference internal" href="#schemas.EventCreate.longitude"><code class="docutils literal notranslate"><span class="pre">EventCreate.longitude</span></code></a></li>
+<li><a class="reference internal" href="#schemas.EventCreate.metadata"><code class="docutils literal notranslate"><span class="pre">EventCreate.metadata</span></code></a></li>
+<li><a class="reference internal" href="#schemas.EventCreate.model_config"><code class="docutils literal notranslate"><span class="pre">EventCreate.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.EventCreate.ts"><code class="docutils literal notranslate"><span class="pre">EventCreate.ts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Family"><code class="docutils literal notranslate"><span class="pre">Family</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Family.Config"><code class="docutils literal notranslate"><span class="pre">Family.Config</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Family.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">Family.Config.orm_mode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Family.created_at"><code class="docutils literal notranslate"><span class="pre">Family.created_at</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Family.id"><code class="docutils literal notranslate"><span class="pre">Family.id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Family.model_config"><code class="docutils literal notranslate"><span class="pre">Family.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Family.updated_at"><code class="docutils literal notranslate"><span class="pre">Family.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.FamilyBase"><code class="docutils literal notranslate"><span class="pre">FamilyBase</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.FamilyBase.friendly_name"><code class="docutils literal notranslate"><span class="pre">FamilyBase.friendly_name</span></code></a></li>
+<li><a class="reference internal" href="#schemas.FamilyBase.herd_id"><code class="docutils literal notranslate"><span class="pre">FamilyBase.herd_id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.FamilyBase.model_config"><code class="docutils literal notranslate"><span class="pre">FamilyBase.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.FamilyCreate"><code class="docutils literal notranslate"><span class="pre">FamilyCreate</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.FamilyCreate.model_config"><code class="docutils literal notranslate"><span class="pre">FamilyCreate.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Herd"><code class="docutils literal notranslate"><span class="pre">Herd</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Herd.Config"><code class="docutils literal notranslate"><span class="pre">Herd.Config</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Herd.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">Herd.Config.orm_mode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Herd.created_at"><code class="docutils literal notranslate"><span class="pre">Herd.created_at</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Herd.id"><code class="docutils literal notranslate"><span class="pre">Herd.id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Herd.model_config"><code class="docutils literal notranslate"><span class="pre">Herd.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Herd.updated_at"><code class="docutils literal notranslate"><span class="pre">Herd.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.HerdBase"><code class="docutils literal notranslate"><span class="pre">HerdBase</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.HerdBase.description"><code class="docutils literal notranslate"><span class="pre">HerdBase.description</span></code></a></li>
+<li><a class="reference internal" href="#schemas.HerdBase.model_config"><code class="docutils literal notranslate"><span class="pre">HerdBase.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.HerdBase.species_name"><code class="docutils literal notranslate"><span class="pre">HerdBase.species_name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.HerdCreate"><code class="docutils literal notranslate"><span class="pre">HerdCreate</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.HerdCreate.model_config"><code class="docutils literal notranslate"><span class="pre">HerdCreate.model_config</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Observation"><code class="docutils literal notranslate"><span class="pre">Observation</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Observation.Config"><code class="docutils literal notranslate"><span class="pre">Observation.Config</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.Observation.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">Observation.Config.orm_mode</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.Observation.family_id"><code class="docutils literal notranslate"><span class="pre">Observation.family_id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.health"><code class="docutils literal notranslate"><span class="pre">Observation.health</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.id"><code class="docutils literal notranslate"><span class="pre">Observation.id</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.lat"><code class="docutils literal notranslate"><span class="pre">Observation.lat</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.lng"><code class="docutils literal notranslate"><span class="pre">Observation.lng</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.model_config"><code class="docutils literal notranslate"><span class="pre">Observation.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.size"><code class="docutils literal notranslate"><span class="pre">Observation.size</span></code></a></li>
+<li><a class="reference internal" href="#schemas.Observation.ts"><code class="docutils literal notranslate"><span class="pre">Observation.ts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#schemas.ObservationCreate"><code class="docutils literal notranslate"><span class="pre">ObservationCreate</span></code></a><ul>
+<li><a class="reference internal" href="#schemas.ObservationCreate.health_rating"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.health_rating</span></code></a></li>
+<li><a class="reference internal" href="#schemas.ObservationCreate.latitude"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.latitude</span></code></a></li>
+<li><a class="reference internal" href="#schemas.ObservationCreate.longitude"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.longitude</span></code></a></li>
+<li><a class="reference internal" href="#schemas.ObservationCreate.model_config"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.model_config</span></code></a></li>
+<li><a class="reference internal" href="#schemas.ObservationCreate.size"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.size</span></code></a></li>
+<li><a class="reference internal" href="#schemas.ObservationCreate.ts"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.ts</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Wildlife Tracker API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Wildlife Tracker API documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="wildlife-tracker-api-documentation">
+<h1>Wildlife Tracker API documentation<a class="headerlink" href="#wildlife-tracker-api-documentation" title="Link to this heading"></a></h1>
+<p>Welcome to the Wildlife Tracker API documentation.</p>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="py class" id="module-schemas">
+<dt class="sig sig-object py" id="schemas.Event">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Event" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.EventCreate" title="schemas.EventCreate"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventCreate</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Event.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/schemas.html#Event.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Event.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.Config.orm_mode">
+<span class="sig-name descname"><span class="pre">orm_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#schemas.Event.Config.orm_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#schemas.Event.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.family_id">
+<span class="sig-name descname"><span class="pre">family_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Event.family_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Event.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.Event.lat" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.lng">
+<span class="sig-name descname"><span class="pre">lng</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.Event.lng" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'orm_mode':</span> <span class="pre">True}</span></em><a class="headerlink" href="#schemas.Event.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Event.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Event.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.EventCreate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">EventCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#EventCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.EventCreate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#schemas.EventCreate.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.EventCreate.latitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.EventCreate.longitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.metadata">
+<span class="sig-name descname"><span class="pre">metadata</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schemas.EventCreate.metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.EventCreate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.EventCreate.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schemas.EventCreate.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Family">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">Family</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">friendly_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">herd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#Family"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Family" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.FamilyBase" title="schemas.FamilyBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FamilyBase</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Family.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/schemas.html#Family.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Family.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Family.Config.orm_mode">
+<span class="sig-name descname"><span class="pre">orm_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#schemas.Family.Config.orm_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Family.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Family.created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Family.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Family.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Family.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'orm_mode':</span> <span class="pre">True}</span></em><a class="headerlink" href="#schemas.Family.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Family.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Family.updated_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.FamilyBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">FamilyBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">friendly_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">herd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#FamilyBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.FamilyBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.FamilyBase.friendly_name">
+<span class="sig-name descname"><span class="pre">friendly_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#schemas.FamilyBase.friendly_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.FamilyBase.herd_id">
+<span class="sig-name descname"><span class="pre">herd_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.FamilyBase.herd_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.FamilyBase.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.FamilyBase.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.FamilyCreate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">FamilyCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">friendly_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">herd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#FamilyCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.FamilyCreate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.FamilyBase" title="schemas.FamilyBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">FamilyBase</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.FamilyCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.FamilyCreate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Herd">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">Herd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">created_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updated_at</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#Herd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Herd" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.HerdBase" title="schemas.HerdBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">HerdBase</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Herd.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/schemas.html#Herd.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Herd.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Herd.Config.orm_mode">
+<span class="sig-name descname"><span class="pre">orm_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#schemas.Herd.Config.orm_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Herd.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Herd.created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Herd.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Herd.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Herd.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'orm_mode':</span> <span class="pre">True}</span></em><a class="headerlink" href="#schemas.Herd.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Herd.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Herd.updated_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.HerdBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">HerdBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#HerdBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.HerdBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.HerdBase.description">
+<span class="sig-name descname"><span class="pre">description</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schemas.HerdBase.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.HerdBase.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.HerdBase.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.HerdBase.species_name">
+<span class="sig-name descname"><span class="pre">species_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#schemas.HerdBase.species_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.HerdCreate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">HerdCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">species_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#HerdCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.HerdCreate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.HerdBase" title="schemas.HerdBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">HerdBase</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.HerdCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.HerdCreate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Observation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">Observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#Observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Observation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#schemas.ObservationCreate" title="schemas.ObservationCreate"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObservationCreate</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.Observation.Config">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Config</span></span><a class="reference internal" href="_modules/schemas.html#Observation.Config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Observation.Config" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.Config.orm_mode">
+<span class="sig-name descname"><span class="pre">orm_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#schemas.Observation.Config.orm_mode" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.family_id">
+<span class="sig-name descname"><span class="pre">family_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Observation.family_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.health">
+<span class="sig-name descname"><span class="pre">health</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Observation.health" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Observation.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.lat">
+<span class="sig-name descname"><span class="pre">lat</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.Observation.lat" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.lng">
+<span class="sig-name descname"><span class="pre">lng</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.Observation.lng" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'orm_mode':</span> <span class="pre">True}</span></em><a class="headerlink" href="#schemas.Observation.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.size">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.Observation.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.Observation.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span></em><a class="headerlink" href="#schemas.Observation.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="schemas.ObservationCreate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">ObservationCreate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">health_rating</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#ObservationCreate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.ObservationCreate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.health_rating">
+<span class="sig-name descname"><span class="pre">health_rating</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.ObservationCreate.health_rating" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.ObservationCreate.latitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#schemas.ObservationCreate.longitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#schemas.ObservationCreate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.size">
+<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#schemas.ObservationCreate.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="schemas.ObservationCreate.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schemas.ObservationCreate.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Steven Liu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

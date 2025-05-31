@@ -105,6 +105,7 @@ body, html, #root, .app-container {
   flex: 1;
   position: relative;
   background-color: #e0f7fa;
+  padding:50px
 }
 
 /* Leaflet map should fill area */

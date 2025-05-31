@@ -85,8 +85,8 @@ services:
       ELASTICSEARCH_URL: http://elasticsearch:9200
     depends_on:
       - postgres
-      - kafka
-      - elasticsearch
+      # - kafka
+      # - elasticsearch
 
   frontend:
     build:

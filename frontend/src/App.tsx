@@ -1,28 +1,15 @@
 import React, { useState, useEffect, useCallback, useReducer } from 'react';
-import axios from 'axios';
-import Select from 'react-select';
-import { HerdFamilySelector } from './components/HerdFamilySelector';
-import { TimeSlider } from './components/TimeSlider';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { MapView } from './components/MapView';
 import { LocationQueryPanel } from './components/LocationQueryPanel';
-import { SelectedItems } from './components/SelectedItems';
 import 'leaflet/dist/leaflet.css';
 import './App.css';
 import { reducer, State } from './Reducer';
 import { getColor } from './utils/colorUtils';
 
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts';
-
+import { SelectionPanel } from './components/SelectionPanel';
+import { FamilyMetricsChart } from './components/FamilyMetricsChart';
+import { fetchHerds, fetchFamilies, fetchLocationData } from './api/api';
 
 type LocationDataPoint = {
   time_bucket: string;
@@ -47,11 +34,11 @@ function useHerdsAndFamilies(dispatch: React.Dispatch<any>) {
     async function fetchData() {
       try {
         const [herdsRes, familiesRes] = await Promise.all([
-          axios.get('http://localhost:8000/api/herds'),
-          axios.get('http://localhost:8000/api/families'),
+          fetchHerds(),
+          fetchFamilies(),
         ]);
-        dispatch({ type: 'SET_HERDS', payload: herdsRes.data });
-        dispatch({ type: 'SET_FAMILIES', payload: familiesRes.data });
+        dispatch({ type: 'SET_HERDS', payload: herdsRes });
+        dispatch({ type: 'SET_FAMILIES', payload: familiesRes });
       } catch (error) {
         console.error('Failed to fetch herds or families', error);
       }
@@ -100,35 +87,29 @@ const App = () => {
 
   // Load location data when selectedFamilies, timeBucket or metrics change
   useEffect(() => {
-    async function fetchLocationData() {
+    async function getLocationData() {
       if (selectedFamilies.length === 0 || metrics.length === 0) {
         setLocationData([]);
         return;
       }
-
       setLoading(true);
       try {
         const ids = selectedFamilies.map(f => f.value).join(',');
         const metricParam = metrics.join(',');
-        const params = {
-          params: {
-            entity_type: 'family',
-            entity_id: ids,
-            metrics: `location,${metricParam}`,
-            bucket: timeBucket.value,
-          },
-        }
-        console.log('Fetching location data with params:', params);
-        const res = await axios.get('http://localhost:8000/api/overtime', params);
-        setLocationData(res.data);
+        const data = await fetchLocationData({
+          entityType: 'family',
+          entityIds: ids,
+          metrics: `location,${metricParam}`,
+          bucket: timeBucket.value,
+        });
+        setLocationData(data);
       } catch (error) {
-        console.error('Failed to fetch location data:', error);
         setLocationData([]);
       } finally {
         setLoading(false);
       }
     }
-    fetchLocationData();
+    getLocationData();
   }, [selectedFamilies, timeBucket, metrics]);
 
   const toggleMetric = (metric: string) => {
@@ -136,11 +117,6 @@ const App = () => {
       prev.includes(metric) ? prev.filter(m => m !== metric) : [...prev, metric]
     );
   };
-
-  const familyOptions = filteredFamilies.map(f => ({
-    value: f.id,
-    label: f.friendly_name,
-  }));
 
   const timeBucketOptions = [
     { value: '.5sec', label: '.5 second' },
@@ -156,7 +132,6 @@ const App = () => {
 
   selectedFamilies.forEach((f, i) => {
     colorMap[f.value] = getColor(f.value);
-    console.log(`Family ${f.label} (${f.value}) color: ${colorMap[f.value]}`);
   });
 
   // Normalize data for chart display
@@ -166,104 +141,32 @@ const App = () => {
     <div className="app-container">
 
       <div className="app-body">
-        <aside
-          className="sidebar"
-          style={{
-            width: '300px',
-            height: '100vh',
-            overflowY: 'auto',
-            padding: '1rem',
-            boxSizing: 'border-box',
-            backgroundColor: '#f7f7f7',
-          }}
-        >
-          {/* Herd selector */}
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: 4 }}>Select Herd:</label>
-            <Select
-              options={[{ value: null, label: '--Select Herd--' }, ...herds.map(h => ({ value: h.id, label: h.species_name }))]}
-              value={selectedHerd ? { value: selectedHerd.id, label: selectedHerd.species_name } : { value: null, label: '--Select Herd--' }}
-              onChange={(option) => {
-                dispatch({ type: 'SELECT_HERD', payload: option?.value ? herds.find(h => h.id === option.value) : null });
-                // Deselect families when herd changes
-                // setSelectedFamilies([]);
-              }}
-              isClearable
-            />
-          </div>
-
-          {/* Select / Deselect all families */}
-          <div style={{ marginBottom: '0.5rem' }}>
-            <button
-              style={{ marginRight: '0.5rem' }}
-              onClick={() => {
-                // Select all filtered families
-                const allFamilies = filteredFamilies.map(f => ({ value: f.id, label: f.friendly_name }));
-                setSelectedFamilies(allFamilies);
-              }}
-            >
-              Select All Families
-            </button>
-            {/* <button onClick={() => setSelectedFamilies([])}>Deselect All Families</button> */}
-          </div>
-
-          {/* Multi-family selector */}
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: 4 }}>Select Families:</label>
-            <Select
-              isMulti
-              options={filteredFamilies.map(f => ({ value: f.id, label: f.friendly_name }))}
-              value={selectedFamilies}
-              onChange={(selected) => setSelectedFamilies(selected as any)}
-              closeMenuOnSelect={false}
-              isSearchable
-              placeholder="Select families..."
-              noOptionsMessage={() => "No families available"}
-            />
-          </div>
-
-          {/* Time Bucket selector */}
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: 4 }}>Time Bucket:</label>
-            <Select
-              options={timeBucketOptions}
-              value={timeBucket}
-              onChange={(option) => setTimeBucket(option!)}
-            />
-          </div>
-
-          {/* Metric toggles */}
-          <div style={{ marginBottom: '1rem' }}>
-            <label style={{ display: 'block', marginBottom: 4 }}>Metrics:</label>
-            <label>
-              <input
-                type="checkbox"
-                checked={metrics.includes('size')}
-                onChange={() => toggleMetric('size')}
-              />{' '}
-              Size
-            </label>
-            <label style={{ marginLeft: '1rem' }}>
-              <input
-                type="checkbox"
-                checked={metrics.includes('health')}
-                onChange={() => toggleMetric('health')}
-              />{' '}
-              Health
-            </label>
-          </div>
-
-          <LocationQueryPanel location={locationQuery} time={time} />
-        </aside>
-
+        <SelectionPanel
+          herds={herds}
+          filteredFamilies={filteredFamilies}
+          selectedHerd={selectedHerd}
+          selectedFamilies={selectedFamilies}
+          setSelectedFamilies={setSelectedFamilies}
+          dispatch={dispatch}
+          timeBucket={timeBucket}
+          setTimeBucket={setTimeBucket}
+          metrics={metrics}
+          toggleMetric={toggleMetric}
+          timeBucketOptions={timeBucketOptions}
+          locationQuery={locationQuery}
+          time={time}
+          LocationQueryPanel={LocationQueryPanel}
+        />
 
         <main className="map-area">
           <MapContainer
             center={[0, 0]}
             zoom={2}
+            minZoom={1}
+            maxZoom={18}
             className="map-container"
             worldCopyJump={false}
-            style={{ backgroundColor: 'lightblue' }}
+            style={{ backgroundColor: 'lightblue', padding: '200px' }}
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" noWrap={true} />
             {loading && <div className="loading-indicator">Loading locations...</div>}
@@ -280,83 +183,12 @@ const App = () => {
       </div>
 
       <footer className="app-footer">
-        {/* <h3>Size & Health Over Time</h3> */}
-
-        {/* Line chart only */}
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={normalizedData} margin={{ top: 10, right: 40, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="time_bucket"
-              tickFormatter={(t) => new Date(t).toLocaleTimeString()}
-            />
-            <YAxis />
-            <Tooltip labelFormatter={(label) => new Date(label).toLocaleString()} />
-            <Legend
-              layout="vertical"
-              align="left"
-              verticalAlign="middle"
-              wrapperStyle={{
-                lineHeight: '24px',
-              }}
-              content={({ payload }) => (
-                <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                  {payload?.map((entry, index) => (
-                    <li
-                      key={`legend-${index}`}
-                      style={{ display: 'flex', alignItems: 'center', marginBottom: 6 }}
-                    >
-                      <svg width="30" height="10" style={{ marginRight: 8 }}>
-                        <line
-                          x1={0}
-                          y1={5}
-                          x2={30}
-                          y2={5}
-                          stroke={entry.color}
-                          strokeWidth={2}
-                          strokeDasharray={entry.payload.strokeDasharray || '0'}
-                        />
-                      </svg>
-                      <span>{entry.value}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            />
-
-            {selectedFamilies.map((fam) => {
-              const baseColor = colorMap[fam.value];
-
-              return (
-                <React.Fragment key={fam.value}>
-                  {metrics.includes('size') && (
-                    <Line
-                      key={`${fam.value}-size`}
-                      type="monotone"
-                      dataKey={`avg_size_${fam.value}`}
-                      name={`${fam.label} (Size)`}
-                      stroke={baseColor}
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  )}
-                  {metrics.includes('health') && (
-                    <Line
-                      key={`${fam.value}-health`}
-                      type="monotone"
-                      dataKey={`avg_health_${fam.value}`}
-                      name={`${fam.label} (Health)`}
-                      stroke={baseColor}
-                      strokeDasharray="5 5"
-                      strokeWidth={2}
-                      dot={false}
-                    />
-                  )}
-                </React.Fragment>
-              );
-            })}
-          </LineChart>
-        </ResponsiveContainer>
+        <FamilyMetricsChart
+          normalizedData={normalizedData}
+          selectedFamilies={selectedFamilies}
+          colorMap={colorMap}
+          metrics={metrics}
+        />
       </footer>
 
     </div>
