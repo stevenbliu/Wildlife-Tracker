@@ -17,6 +17,19 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
+def get_db():
+    """
+    Dependency that provides a database session.
+    Yields:
+        db (Session): SQLAlchemy session.
+    """
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
 # TODO: Scaling for DB
 
 # DB Indexes	Add indexes on ts, latitude, longitude, family_id, and herd_id
