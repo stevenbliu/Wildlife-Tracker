@@ -10,6 +10,7 @@ import { SelectedItems } from './components/SelectedItems';
 import 'leaflet/dist/leaflet.css';
 import './App.css';
 import { reducer, State } from './Reducer';
+import { getColor } from './utils/colorUtils';
 
 import {
   LineChart,
@@ -152,10 +153,10 @@ const App = () => {
   ];
 
   const colorMap: { [key: number]: string } = {};
-  const colors = ['#8884d8', '#82ca9d', '#ff7300', '#0088FE', '#00C49F', '#FFBB28'];
 
   selectedFamilies.forEach((f, i) => {
-    colorMap[f.value] = colors[i % colors.length];
+    colorMap[f.value] = getColor(f.value);
+    console.log(`Family ${f.label} (${f.value}) color: ${colorMap[f.value]}`);
   });
 
   // Normalize data for chart display
