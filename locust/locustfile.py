@@ -38,7 +38,7 @@ class WildlifeUser(HttpUser):
     @task(1)
     def send_herd(self):
         herd = {
-            "species_name": f"Herd_{random.randint(1, 100)}",
+            "species_name": f"Herd_{random.randint(15, 21)}",
             "description": f"{random.randint(1, 10000)}",
         }
         response = self.client.post("/api/herds", json=herd)
@@ -50,8 +50,12 @@ class WildlifeUser(HttpUser):
 
     @task(1)
     def send_family(self):
+        self.herd_id = random.randint(
+            1, 21
+        )  # For testing purposes, using a fixed herd_id
+
         family = {
-            "friendly_name": f"Family_{random.randint(1, 100)}",
+            "friendly_name": f"Family_{random.randint(1, 10000)}",
             "herd_id": self.herd_id,
         }
         response = self.client.post("/api/families", json=family)
@@ -71,8 +75,12 @@ class WildlifeUser(HttpUser):
             "ts": datetime.utcnow().isoformat(),
         }
 
-        # self.family_id = 1  # For testing purposes, using a fixed family_id
+        self.family_id = 1  # For testing purposes, using a fixed family_id
         # self.family_id = random.choice([1, 16, 15, 19, 24])
+        self.family_id = random.randint(
+            1, 500
+        )  # For testing purposes, using a fixed family_id
+
         response = self.client.post(
             f"/api/families/{self.family_id}/observations", json=obs
         )
@@ -99,6 +107,9 @@ class WildlifeUser(HttpUser):
 
         # self.family_id = 1  # For testing purposes, using a fixed family_id
         # self.family_id = random.choice([1, 16, 15, 19, 24])
+        self.family_id = random.randint(
+            1, 500
+        )  # For testing purposes, using a fixed family_id
         response = self.client.post(
             f"/api/families/{self.family_id}/events", json=event
         )

@@ -1,0 +1,352 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="Python" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>api.families &mdash; Wildlife Tracker API 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e390f2d4"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Wildlife Tracker API
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Wildlife Tracker API</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">api.families</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for api.families</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Families API endpoints.</span>
+
+<span class="sd">This module provides endpoints for managing wildlife families, their metrics,</span>
+<span class="sd">events, and observations.</span>
+
+<span class="sd">Endpoints:</span>
+<span class="sd">    - GET /api/families/{family_id}/metrics</span>
+<span class="sd">    - POST /api/families</span>
+<span class="sd">    - GET /api/families/{family_id}</span>
+<span class="sd">    - GET /api/families</span>
+<span class="sd">    - GET /api/families/by-herd/{herd_id}</span>
+<span class="sd">    - POST /api/families/{family_id}/events</span>
+<span class="sd">    - POST /api/families/{family_id}/observations</span>
+<span class="sd">    - GET /api/families/{family_id}/observations</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">HTTPException</span><span class="p">,</span> <span class="n">status</span><span class="p">,</span> <span class="n">Query</span><span class="p">,</span> <span class="n">APIRouter</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.orm</span> <span class="kn">import</span> <span class="n">Session</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">text</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="kn">from</span> <span class="nn">database</span> <span class="kn">import</span> <span class="n">SessionLocal</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">Base</span>
+<span class="kn">import</span> <span class="nn">models</span><span class="o">,</span> <span class="nn">schemas</span>
+<span class="kn">from</span> <span class="nn">fastapi.middleware.cors</span> <span class="kn">import</span> <span class="n">CORSMiddleware</span>
+
+<span class="kn">from</span> <span class="nn">geoalchemy2.shape</span> <span class="kn">import</span> <span class="n">from_shape</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">database</span> <span class="kn">import</span> <span class="n">get_db</span>
+
+<span class="n">router</span> <span class="o">=</span> <span class="n">APIRouter</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;/api/families&quot;</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Families&quot;</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="get_family_metrics">
+<a class="viewcode-back" href="../../index.html#api.families.get_family_metrics">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{family_id}</span><span class="s2">/metrics&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_family_metrics</span><span class="p">(</span>
+    <span class="n">family_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get time-series metrics (size, health) for a family.</span>
+
+<span class="sd">    :param family_id: ID of the family.</span>
+<span class="sd">    :param start: (Optional) Start datetime for filtering.</span>
+<span class="sd">    :param end: (Optional) End datetime for filtering.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: List of (timestamp, size, health_rating) tuples.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+        <span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">health_rating</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">family_id</span> <span class="o">==</span> <span class="n">family_id</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">end</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># Family Endpoints</span>
+
+
+<div class="viewcode-block" id="create_family">
+<a class="viewcode-back" href="../../index.html#api.families.create_family">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">schemas</span><span class="o">.</span><span class="n">Family</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_family</span><span class="p">(</span><span class="n">family</span><span class="p">:</span> <span class="n">schemas</span><span class="o">.</span><span class="n">FamilyCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new family. If a family with the same friendly_name already exists, do not add it.</span>
+
+<span class="sd">    :param family: Family creation data.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: The created Family object.</span>
+<span class="sd">    :raises HTTPException: If herd_id is missing, herd does not exist, or family name already exists.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">family</span><span class="o">.</span><span class="n">herd_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span>
+            <span class="n">status_code</span><span class="o">=</span><span class="mi">422</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;herd_id is required and must be an integer&quot;</span>
+        <span class="p">)</span>
+    <span class="n">herd</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Herd</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Herd</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">family</span><span class="o">.</span><span class="n">herd_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">herd</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Herd not found&quot;</span><span class="p">)</span>
+    <span class="n">existing_family</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="o">.</span><span class="n">friendly_name</span> <span class="o">==</span> <span class="n">family</span><span class="o">.</span><span class="n">friendly_name</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">existing_family</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span>
+            <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_400_BAD_REQUEST</span><span class="p">,</span>
+            <span class="n">detail</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Family with friendly_name &#39;</span><span class="si">{</span><span class="n">family</span><span class="o">.</span><span class="n">friendly_name</span><span class="si">}</span><span class="s2">&#39; already exists.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">db_family</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">(</span><span class="o">**</span><span class="n">family</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_family</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">db_family</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">db_family</span></div>
+
+
+
+<div class="viewcode-block" id="get_family">
+<a class="viewcode-back" href="../../index.html#api.families.get_family">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{family_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">schemas</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_family</span><span class="p">(</span><span class="n">family_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve a family by its ID.</span>
+
+<span class="sd">    :param family_id: The ID of the family to retrieve.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: The Family object if found.</span>
+<span class="sd">    :raises HTTPException: If the family is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">family_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">family</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Family not found&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">family</span></div>
+
+
+
+<div class="viewcode-block" id="get_all_families">
+<a class="viewcode-back" href="../../index.html#api.families.get_all_families">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">List</span><span class="p">[</span><span class="n">schemas</span><span class="o">.</span><span class="n">Family</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_all_families</span><span class="p">(</span><span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve all families.</span>
+
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: List of all Family objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">families</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">families</span></div>
+
+
+
+<div class="viewcode-block" id="get_families_by_herd">
+<a class="viewcode-back" href="../../index.html#api.families.get_families_by_herd">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/by-herd/</span><span class="si">{herd_id}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">List</span><span class="p">[</span><span class="n">schemas</span><span class="o">.</span><span class="n">Family</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_families_by_herd</span><span class="p">(</span><span class="n">herd_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve all families belonging to a specific herd.</span>
+
+<span class="sd">    :param herd_id: The ID of the herd.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: List of Family objects in the herd.</span>
+<span class="sd">    :raises HTTPException: If the herd is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">herd</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Herd</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Herd</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">herd_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">herd</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Herd not found&quot;</span><span class="p">)</span>
+
+    <span class="n">families</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="o">.</span><span class="n">herd_id</span> <span class="o">==</span> <span class="n">herd_id</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">families</span></div>
+
+
+
+<span class="c1"># Event Endpoints</span>
+
+
+<div class="viewcode-block" id="create_event">
+<a class="viewcode-back" href="../../index.html#api.families.create_event">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{family_id}</span><span class="s2">/events&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_event</span><span class="p">(</span>
+    <span class="n">family_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">schemas</span><span class="o">.</span><span class="n">EventCreate</span><span class="p">,</span> <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">)</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new event for a family.</span>
+
+<span class="sd">    :param family_id: The ID of the family.</span>
+<span class="sd">    :param event: Event creation data.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: Success message.</span>
+<span class="sd">    :raises HTTPException: If the family is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">family_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">family</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Family not found&quot;</span><span class="p">)</span>
+    <span class="n">event_data</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+    <span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;family_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">family_id</span>
+    <span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_shape</span><span class="p">(</span>
+        <span class="n">Point</span><span class="p">(</span><span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span> <span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]),</span> <span class="n">srid</span><span class="o">=</span><span class="mi">4326</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">event_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ts&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">event_data</span><span class="p">[</span><span class="s2">&quot;ts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+    <span class="n">db_event</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="o">**</span><span class="n">event_data</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_event</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Event created&quot;</span><span class="p">}</span></div>
+
+
+
+<span class="c1"># Observation Endpoints</span>
+
+
+<div class="viewcode-block" id="create_observation">
+<a class="viewcode-back" href="../../index.html#api.families.create_observation">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{family_id}</span><span class="s2">/observations&quot;</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_201_CREATED</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">create_observation</span><span class="p">(</span>
+    <span class="n">family_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">observation</span><span class="p">:</span> <span class="n">schemas</span><span class="o">.</span><span class="n">ObservationCreate</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new observation for a family.</span>
+
+<span class="sd">    :param family_id: The ID of the family.</span>
+<span class="sd">    :param observation: Observation creation data.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: Success message.</span>
+<span class="sd">    :raises HTTPException: If the family is not found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">family</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Family</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="n">family_id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">family</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">404</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="s2">&quot;Family not found&quot;</span><span class="p">)</span>
+    <span class="n">obs_data</span> <span class="o">=</span> <span class="n">observation</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
+    <span class="n">obs_data</span><span class="p">[</span><span class="s2">&quot;family_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">family_id</span>
+    <span class="k">if</span> <span class="n">obs_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ts&quot;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">obs_data</span><span class="p">[</span><span class="s2">&quot;ts&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+    <span class="n">obs_data</span><span class="p">[</span><span class="s2">&quot;location&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">from_shape</span><span class="p">(</span>
+        <span class="n">Point</span><span class="p">(</span><span class="n">obs_data</span><span class="p">[</span><span class="s2">&quot;longitude&quot;</span><span class="p">],</span> <span class="n">obs_data</span><span class="p">[</span><span class="s2">&quot;latitude&quot;</span><span class="p">]),</span> <span class="n">srid</span><span class="o">=</span><span class="mi">4326</span>
+    <span class="p">)</span>
+    <span class="n">db_observation</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="p">(</span><span class="o">**</span><span class="n">obs_data</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">db_observation</span><span class="p">)</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;Observation created&quot;</span><span class="p">}</span></div>
+
+
+
+<div class="viewcode-block" id="get_family_observations">
+<a class="viewcode-back" href="../../index.html#api.families.get_family_observations">[docs]</a>
+<span class="nd">@router</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/</span><span class="si">{family_id}</span><span class="s2">/observations&quot;</span><span class="p">,</span> <span class="n">response_model</span><span class="o">=</span><span class="n">List</span><span class="p">[</span><span class="n">schemas</span><span class="o">.</span><span class="n">Observation</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">get_family_observations</span><span class="p">(</span>
+    <span class="n">family_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">start</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">end</span><span class="p">:</span> <span class="n">datetime</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">db</span><span class="p">:</span> <span class="n">Session</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">get_db</span><span class="p">),</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieve all observations for a family, optionally filtered by time range.</span>
+
+<span class="sd">    :param family_id: The ID of the family.</span>
+<span class="sd">    :param start: (Optional) Start datetime for filtering.</span>
+<span class="sd">    :param end: (Optional) End datetime for filtering.</span>
+<span class="sd">    :param db: Database session.</span>
+<span class="sd">    :return: List of Observation objects.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">family_id</span> <span class="o">==</span> <span class="n">family_id</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">end</span><span class="p">:</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Observation</span><span class="o">.</span><span class="n">ts</span> <span class="o">&lt;=</span> <span class="n">end</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Steven Liu.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

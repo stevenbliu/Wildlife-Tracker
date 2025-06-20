@@ -29,6 +29,9 @@ from shapely.geometry import Point
 from typing import List, Optional
 from database import get_db
 
+from backend.kafka.producer import produce_event  # import your Kafka producer helper
+
+
 router = APIRouter(prefix="/api/families", tags=["Families"])
 
 
@@ -78,11 +81,15 @@ def create_family(family: schemas.FamilyCreate, db: Session = Depends(get_db)):
     herd = db.query(models.Herd).filter(models.Herd.id == family.herd_id).first()
     if not herd:
         raise HTTPException(status_code=404, detail="Herd not found")
-    existing_family = db.query(models.Family).filter(models.Family.friendly_name == family.friendly_name).first()
+    existing_family = (
+        db.query(models.Family)
+        .filter(models.Family.friendly_name == family.friendly_name)
+        .first()
+    )
     if existing_family:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=f"Family with friendly_name '{family.friendly_name}' already exists."
+            detail=f"Family with friendly_name '{family.friendly_name}' already exists.",
         )
     db_family = models.Family(**family.dict())
     db.add(db_family)
@@ -167,6 +174,21 @@ def create_event(
     db_event = models.Event(**event_data)
     db.add(db_event)
     db.commit()
+
+    db.refresh(db_event)  # important to get ID and updated fields
+    # Produce Kafka event — send minimal data needed by consumers
+    produce_event(
+        {
+            "id": db_event.id,
+            "family_id": db_event.family_id,
+            "description": db_event.description,
+            "lat": event_data["latitude"],
+            "lng": event_data["longitude"],
+            "ts": db_event.ts.isoformat(),
+            "metadata": db_event.metadata,
+        }
+    )
+
     return {"message": "Event created"}
 
 

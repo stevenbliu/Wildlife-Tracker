@@ -68,10 +68,12 @@
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#A"><strong>A</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
@@ -82,12 +84,76 @@
  | <a href="#U"><strong>U</strong></a>
  
 </div>
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    api.events
+
+      <ul>
+        <li><a href="index.html#module-api.events">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.families
+
+      <ul>
+        <li><a href="index.html#module-api.families">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.herds
+
+      <ul>
+        <li><a href="index.html#module-api.herds">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    api.nearby
+
+      <ul>
+        <li><a href="index.html#module-api.nearby">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.observations
+
+      <ul>
+        <li><a href="index.html#module-api.observations">module</a>
+</li>
+      </ul></li>
+      <li>
+    api.overtime
+
+      <ul>
+        <li><a href="index.html#module-api.overtime">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Family.created_at">created_at (schemas.Family attribute)</a>
+      <li><a href="index.html#api.families.create_event">create_event() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.families.create_family">create_family() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.herds.create_herd">create_herd() (in module api.herds)</a>
+</li>
+      <li><a href="index.html#api.families.create_observation">create_observation() (in module api.families)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#models.Family.created_at">created_at (models.Family attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Herd.created_at">(models.Herd attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Family.created_at">(schemas.Family attribute)</a>
+</li>
         <li><a href="index.html#schemas.Herd.created_at">(schemas.Herd attribute)</a>
 </li>
       </ul></li>
@@ -97,9 +163,13 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Event.description">description (schemas.Event attribute)</a>
+      <li><a href="index.html#models.Event.description">description (models.Event attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Herd.description">(models.Herd attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Event.description">(schemas.Event attribute)</a>
+</li>
         <li><a href="index.html#schemas.EventCreate.description">(schemas.EventCreate attribute)</a>
 </li>
         <li><a href="index.html#schemas.HerdBase.description">(schemas.HerdBase attribute)</a>
@@ -111,11 +181,17 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Event">Event (class in schemas)</a>
+      <li><a href="index.html#models.Event">Event (class in models)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.Event">(class in schemas)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#schemas.Event.Config">Event.Config (class in schemas)</a>
+</li>
+      <li><a href="index.html#models.Event.event_metadata">event_metadata (models.Event attribute)</a>
 </li>
       <li><a href="index.html#schemas.EventCreate">EventCreate (class in schemas)</a>
 </li>
@@ -125,13 +201,29 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Family">Family (class in schemas)</a>
+      <li><a href="index.html#models.Herd.families">families (models.Herd attribute)</a>
 </li>
-      <li><a href="index.html#schemas.Family.Config">Family.Config (class in schemas)</a>
-</li>
-      <li><a href="index.html#schemas.Event.family_id">family_id (schemas.Event attribute)</a>
+      <li><a href="index.html#models.Family">Family (class in models)</a>
 
       <ul>
+        <li><a href="index.html#schemas.Family">(class in schemas)</a>
+</li>
+      </ul></li>
+      <li><a href="index.html#models.Event.family">family (models.Event attribute)</a>
+
+      <ul>
+        <li><a href="index.html#models.Observation.family">(models.Observation attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="index.html#schemas.Family.Config">Family.Config (class in schemas)</a>
+</li>
+      <li><a href="index.html#models.Event.family_id">family_id (models.Event attribute)</a>
+
+      <ul>
+        <li><a href="index.html#models.Observation.family_id">(models.Observation attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Event.family_id">(schemas.Event attribute)</a>
+</li>
         <li><a href="index.html#schemas.Observation.family_id">(schemas.Observation attribute)</a>
 </li>
       </ul></li>
@@ -141,7 +233,41 @@
 </li>
       <li><a href="index.html#schemas.FamilyCreate">FamilyCreate (class in schemas)</a>
 </li>
-      <li><a href="index.html#schemas.FamilyBase.friendly_name">friendly_name (schemas.FamilyBase attribute)</a>
+      <li><a href="index.html#models.Family.friendly_name">friendly_name (models.Family attribute)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.FamilyBase.friendly_name">(schemas.FamilyBase attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#api.families.get_all_families">get_all_families() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.herds.get_all_herds">get_all_herds() (in module api.herds)</a>
+</li>
+      <li><a href="index.html#api.families.get_families_by_herd">get_families_by_herd() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.families.get_family">get_family() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.families.get_family_metrics">get_family_metrics() (in module api.families)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#api.families.get_family_observations">get_family_observations() (in module api.families)</a>
+</li>
+      <li><a href="index.html#api.herds.get_herd_observations">get_herd_observations() (in module api.herds)</a>
+</li>
+      <li><a href="index.html#api.events.get_nearby_events">get_nearby_events() (in module api.events)</a>
+</li>
+      <li><a href="index.html#api.nearby.get_nearby_families">get_nearby_families() (in module api.nearby)</a>
+</li>
+      <li><a href="index.html#api.observations.get_nearby_observations">get_nearby_observations() (in module api.observations)</a>
+</li>
+      <li><a href="index.html#api.overtime.get_overtime_data">get_overtime_data() (in module api.overtime)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -151,16 +277,30 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#schemas.Observation.health">health (schemas.Observation attribute)</a>
 </li>
-      <li><a href="index.html#schemas.ObservationCreate.health_rating">health_rating (schemas.ObservationCreate attribute)</a>
+      <li><a href="index.html#models.Observation.health_rating">health_rating (models.Observation attribute)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.ObservationCreate.health_rating">(schemas.ObservationCreate attribute)</a>
 </li>
-      <li><a href="index.html#schemas.Herd">Herd (class in schemas)</a>
+      </ul></li>
+      <li><a href="index.html#models.Herd">Herd (class in models)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.Herd">(class in schemas)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#models.Family.herd">herd (models.Family attribute)</a>
+</li>
       <li><a href="index.html#schemas.Herd.Config">Herd.Config (class in schemas)</a>
 </li>
-      <li><a href="index.html#schemas.FamilyBase.herd_id">herd_id (schemas.FamilyBase attribute)</a>
+      <li><a href="index.html#models.Family.herd_id">herd_id (models.Family attribute)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.FamilyBase.herd_id">(schemas.FamilyBase attribute)</a>
 </li>
+      </ul></li>
       <li><a href="index.html#schemas.HerdBase">HerdBase (class in schemas)</a>
 </li>
       <li><a href="index.html#schemas.HerdCreate">HerdCreate (class in schemas)</a>
@@ -171,9 +311,17 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Event.id">id (schemas.Event attribute)</a>
+      <li><a href="index.html#models.Event.id">id (models.Event attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Family.id">(models.Family attribute)</a>
+</li>
+        <li><a href="index.html#models.Herd.id">(models.Herd attribute)</a>
+</li>
+        <li><a href="index.html#models.Observation.id">(models.Observation attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Event.id">(schemas.Event attribute)</a>
+</li>
         <li><a href="index.html#schemas.Family.id">(schemas.Family attribute)</a>
 </li>
         <li><a href="index.html#schemas.Herd.id">(schemas.Herd attribute)</a>
@@ -193,23 +341,37 @@
         <li><a href="index.html#schemas.Observation.lat">(schemas.Observation attribute)</a>
 </li>
       </ul></li>
-      <li><a href="index.html#schemas.EventCreate.latitude">latitude (schemas.EventCreate attribute)</a>
+      <li><a href="index.html#models.Event.latitude">latitude (models.Event attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Observation.latitude">(models.Observation attribute)</a>
+</li>
+        <li><a href="index.html#schemas.EventCreate.latitude">(schemas.EventCreate attribute)</a>
+</li>
         <li><a href="index.html#schemas.ObservationCreate.latitude">(schemas.ObservationCreate attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="index.html#schemas.Event.lng">lng (schemas.Event attribute)</a>
 
       <ul>
         <li><a href="index.html#schemas.Observation.lng">(schemas.Observation attribute)</a>
 </li>
       </ul></li>
-      <li><a href="index.html#schemas.EventCreate.longitude">longitude (schemas.EventCreate attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#models.Event.location">location (models.Event attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Observation.location">(models.Observation attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="index.html#models.Event.longitude">longitude (models.Event attribute)</a>
+
+      <ul>
+        <li><a href="index.html#models.Observation.longitude">(models.Observation attribute)</a>
+</li>
+        <li><a href="index.html#schemas.EventCreate.longitude">(schemas.EventCreate attribute)</a>
+</li>
         <li><a href="index.html#schemas.ObservationCreate.longitude">(schemas.ObservationCreate attribute)</a>
 </li>
       </ul></li>
@@ -246,9 +408,30 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
+    models
+
+      <ul>
+        <li><a href="index.html#module-models">module</a>
+</li>
+      </ul></li>
+      <li>
     module
 
       <ul>
+        <li><a href="index.html#module-api.events">api.events</a>
+</li>
+        <li><a href="index.html#module-api.families">api.families</a>
+</li>
+        <li><a href="index.html#module-api.herds">api.herds</a>
+</li>
+        <li><a href="index.html#module-api.nearby">api.nearby</a>
+</li>
+        <li><a href="index.html#module-api.observations">api.observations</a>
+</li>
+        <li><a href="index.html#module-api.overtime">api.overtime</a>
+</li>
+        <li><a href="index.html#module-models">models</a>
+</li>
         <li><a href="index.html#module-schemas">schemas</a>
 </li>
       </ul></li>
@@ -258,14 +441,20 @@
 <h2 id="O">O</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Observation">Observation (class in schemas)</a>
+      <li><a href="index.html#models.Observation">Observation (class in models)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.Observation">(class in schemas)</a>
 </li>
+      </ul></li>
       <li><a href="index.html#schemas.Observation.Config">Observation.Config (class in schemas)</a>
 </li>
-      <li><a href="index.html#schemas.ObservationCreate">ObservationCreate (class in schemas)</a>
+      <li><a href="index.html#models.Observation.observation_metadata">observation_metadata (models.Observation attribute)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#schemas.ObservationCreate">ObservationCreate (class in schemas)</a>
+</li>
       <li><a href="index.html#schemas.Event.Config.orm_mode">orm_mode (schemas.Event.Config attribute)</a>
 
       <ul>
@@ -289,25 +478,35 @@
         <li><a href="index.html#module-schemas">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Observation.size">size (schemas.Observation attribute)</a>
+      <li><a href="index.html#models.Observation.size">size (models.Observation attribute)</a>
 
       <ul>
+        <li><a href="index.html#schemas.Observation.size">(schemas.Observation attribute)</a>
+</li>
         <li><a href="index.html#schemas.ObservationCreate.size">(schemas.ObservationCreate attribute)</a>
 </li>
       </ul></li>
-      <li><a href="index.html#schemas.HerdBase.species_name">species_name (schemas.HerdBase attribute)</a>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#models.Herd.species_name">species_name (models.Herd attribute)</a>
+
+      <ul>
+        <li><a href="index.html#schemas.HerdBase.species_name">(schemas.HerdBase attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Event.ts">ts (schemas.Event attribute)</a>
+      <li><a href="index.html#models.Event.ts">ts (models.Event attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Observation.ts">(models.Observation attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Event.ts">(schemas.Event attribute)</a>
+</li>
         <li><a href="index.html#schemas.EventCreate.ts">(schemas.EventCreate attribute)</a>
 </li>
         <li><a href="index.html#schemas.Observation.ts">(schemas.Observation attribute)</a>
@@ -321,9 +520,13 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#schemas.Family.updated_at">updated_at (schemas.Family attribute)</a>
+      <li><a href="index.html#models.Family.updated_at">updated_at (models.Family attribute)</a>
 
       <ul>
+        <li><a href="index.html#models.Herd.updated_at">(models.Herd attribute)</a>
+</li>
+        <li><a href="index.html#schemas.Family.updated_at">(schemas.Family attribute)</a>
+</li>
         <li><a href="index.html#schemas.Herd.updated_at">(schemas.Herd attribute)</a>
 </li>
       </ul></li>

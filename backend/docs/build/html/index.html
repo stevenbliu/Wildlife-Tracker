@@ -43,6 +43,49 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Wildlife Tracker API documentation</a><ul>
+<li><a class="reference internal" href="#models.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li><a class="reference internal" href="#models.Event.description"><code class="docutils literal notranslate"><span class="pre">Event.description</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.event_metadata"><code class="docutils literal notranslate"><span class="pre">Event.event_metadata</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.family"><code class="docutils literal notranslate"><span class="pre">Event.family</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.family_id"><code class="docutils literal notranslate"><span class="pre">Event.family_id</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.id"><code class="docutils literal notranslate"><span class="pre">Event.id</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.latitude"><code class="docutils literal notranslate"><span class="pre">Event.latitude</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.location"><code class="docutils literal notranslate"><span class="pre">Event.location</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.longitude"><code class="docutils literal notranslate"><span class="pre">Event.longitude</span></code></a></li>
+<li><a class="reference internal" href="#models.Event.ts"><code class="docutils literal notranslate"><span class="pre">Event.ts</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models.Family"><code class="docutils literal notranslate"><span class="pre">Family</span></code></a><ul>
+<li><a class="reference internal" href="#models.Family.created_at"><code class="docutils literal notranslate"><span class="pre">Family.created_at</span></code></a></li>
+<li><a class="reference internal" href="#models.Family.friendly_name"><code class="docutils literal notranslate"><span class="pre">Family.friendly_name</span></code></a></li>
+<li><a class="reference internal" href="#models.Family.herd"><code class="docutils literal notranslate"><span class="pre">Family.herd</span></code></a></li>
+<li><a class="reference internal" href="#models.Family.herd_id"><code class="docutils literal notranslate"><span class="pre">Family.herd_id</span></code></a></li>
+<li><a class="reference internal" href="#models.Family.id"><code class="docutils literal notranslate"><span class="pre">Family.id</span></code></a></li>
+<li><a class="reference internal" href="#models.Family.updated_at"><code class="docutils literal notranslate"><span class="pre">Family.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models.Herd"><code class="docutils literal notranslate"><span class="pre">Herd</span></code></a><ul>
+<li><a class="reference internal" href="#models.Herd.created_at"><code class="docutils literal notranslate"><span class="pre">Herd.created_at</span></code></a></li>
+<li><a class="reference internal" href="#models.Herd.description"><code class="docutils literal notranslate"><span class="pre">Herd.description</span></code></a></li>
+<li><a class="reference internal" href="#models.Herd.families"><code class="docutils literal notranslate"><span class="pre">Herd.families</span></code></a></li>
+<li><a class="reference internal" href="#models.Herd.id"><code class="docutils literal notranslate"><span class="pre">Herd.id</span></code></a></li>
+<li><a class="reference internal" href="#models.Herd.species_name"><code class="docutils literal notranslate"><span class="pre">Herd.species_name</span></code></a></li>
+<li><a class="reference internal" href="#models.Herd.updated_at"><code class="docutils literal notranslate"><span class="pre">Herd.updated_at</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#models.Observation"><code class="docutils literal notranslate"><span class="pre">Observation</span></code></a><ul>
+<li><a class="reference internal" href="#models.Observation.family"><code class="docutils literal notranslate"><span class="pre">Observation.family</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.family_id"><code class="docutils literal notranslate"><span class="pre">Observation.family_id</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.health_rating"><code class="docutils literal notranslate"><span class="pre">Observation.health_rating</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.id"><code class="docutils literal notranslate"><span class="pre">Observation.id</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.latitude"><code class="docutils literal notranslate"><span class="pre">Observation.latitude</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.location"><code class="docutils literal notranslate"><span class="pre">Observation.location</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.longitude"><code class="docutils literal notranslate"><span class="pre">Observation.longitude</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.observation_metadata"><code class="docutils literal notranslate"><span class="pre">Observation.observation_metadata</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.size"><code class="docutils literal notranslate"><span class="pre">Observation.size</span></code></a></li>
+<li><a class="reference internal" href="#models.Observation.ts"><code class="docutils literal notranslate"><span class="pre">Observation.ts</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#schemas.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
 <li><a class="reference internal" href="#schemas.Event.Config"><code class="docutils literal notranslate"><span class="pre">Event.Config</span></code></a><ul>
 <li><a class="reference internal" href="#schemas.Event.Config.orm_mode"><code class="docutils literal notranslate"><span class="pre">Event.Config.orm_mode</span></code></a></li>
@@ -132,6 +175,21 @@
 <li><a class="reference internal" href="#schemas.ObservationCreate.ts"><code class="docutils literal notranslate"><span class="pre">ObservationCreate.ts</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#api.herds.create_herd"><code class="docutils literal notranslate"><span class="pre">create_herd()</span></code></a></li>
+<li><a class="reference internal" href="#api.herds.get_all_herds"><code class="docutils literal notranslate"><span class="pre">get_all_herds()</span></code></a></li>
+<li><a class="reference internal" href="#api.herds.get_herd_observations"><code class="docutils literal notranslate"><span class="pre">get_herd_observations()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.create_event"><code class="docutils literal notranslate"><span class="pre">create_event()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.create_family"><code class="docutils literal notranslate"><span class="pre">create_family()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.create_observation"><code class="docutils literal notranslate"><span class="pre">create_observation()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.get_all_families"><code class="docutils literal notranslate"><span class="pre">get_all_families()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.get_families_by_herd"><code class="docutils literal notranslate"><span class="pre">get_families_by_herd()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.get_family"><code class="docutils literal notranslate"><span class="pre">get_family()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.get_family_metrics"><code class="docutils literal notranslate"><span class="pre">get_family_metrics()</span></code></a></li>
+<li><a class="reference internal" href="#api.families.get_family_observations"><code class="docutils literal notranslate"><span class="pre">get_family_observations()</span></code></a></li>
+<li><a class="reference internal" href="#api.observations.get_nearby_observations"><code class="docutils literal notranslate"><span class="pre">get_nearby_observations()</span></code></a></li>
+<li><a class="reference internal" href="#api.events.get_nearby_events"><code class="docutils literal notranslate"><span class="pre">get_nearby_events()</span></code></a></li>
+<li><a class="reference internal" href="#api.overtime.get_overtime_data"><code class="docutils literal notranslate"><span class="pre">get_overtime_data()</span></code></a></li>
+<li><a class="reference internal" href="#api.nearby.get_nearby_families"><code class="docutils literal notranslate"><span class="pre">get_nearby_families()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -165,6 +223,248 @@
 <p>Welcome to the Wildlife Tracker API documentation.</p>
 <div class="toctree-wrapper compound">
 </div>
+<p id="module-models">models.py</p>
+<p>SQLAlchemy ORM models for the Wildlife Tracker backend.</p>
+<p>Defines database tables for herds, families, events, and observations,
+including relationships and geospatial fields.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Event">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.Event" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>SQLAlchemy model for an event related to a family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> -- Primary key.</p></li>
+<li><p><strong>family_id</strong> -- Foreign key to the family.</p></li>
+<li><p><strong>description</strong> -- Description of the event.</p></li>
+<li><p><strong>latitude</strong> -- Latitude of the event.</p></li>
+<li><p><strong>longitude</strong> -- Longitude of the event.</p></li>
+<li><p><strong>location</strong> -- Geospatial point (PostGIS).</p></li>
+<li><p><strong>ts</strong> -- Timestamp of the event.</p></li>
+<li><p><strong>event_metadata</strong> -- Optional metadata (JSON string).</p></li>
+<li><p><strong>family</strong> -- Relationship to Family object.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#models.Event.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.event_metadata">
+<span class="sig-name descname"><span class="pre">event_metadata</span></span><a class="headerlink" href="#models.Event.event_metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.family">
+<span class="sig-name descname"><span class="pre">family</span></span><a class="headerlink" href="#models.Event.family" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.family_id">
+<span class="sig-name descname"><span class="pre">family_id</span></span><a class="headerlink" href="#models.Event.family_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#models.Event.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><a class="headerlink" href="#models.Event.latitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.location">
+<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#models.Event.location" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><a class="headerlink" href="#models.Event.longitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Event.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#models.Event.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Family">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Family</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#Family"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.Family" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>SQLAlchemy model for a wildlife family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> -- Primary key.</p></li>
+<li><p><strong>herd_id</strong> -- Foreign key to the herd.</p></li>
+<li><p><strong>friendly_name</strong> -- Human-friendly name for the family.</p></li>
+<li><p><strong>created_at</strong> -- Timestamp when the family was created.</p></li>
+<li><p><strong>updated_at</strong> -- Timestamp when the family was last updated.</p></li>
+<li><p><strong>herd</strong> -- Relationship to Herd object.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#models.Family.created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.friendly_name">
+<span class="sig-name descname"><span class="pre">friendly_name</span></span><a class="headerlink" href="#models.Family.friendly_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.herd">
+<span class="sig-name descname"><span class="pre">herd</span></span><a class="headerlink" href="#models.Family.herd" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.herd_id">
+<span class="sig-name descname"><span class="pre">herd_id</span></span><a class="headerlink" href="#models.Family.herd_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#models.Family.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Family.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#models.Family.updated_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Herd">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Herd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#Herd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.Herd" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>SQLAlchemy model for a wildlife herd.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> -- Primary key.</p></li>
+<li><p><strong>species_name</strong> -- Name of the species.</p></li>
+<li><p><strong>description</strong> -- Optional description.</p></li>
+<li><p><strong>created_at</strong> -- Timestamp when the herd was created.</p></li>
+<li><p><strong>updated_at</strong> -- Timestamp when the herd was last updated.</p></li>
+<li><p><strong>families</strong> -- Relationship to Family objects.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.created_at">
+<span class="sig-name descname"><span class="pre">created_at</span></span><a class="headerlink" href="#models.Herd.created_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#models.Herd.description" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.families">
+<span class="sig-name descname"><span class="pre">families</span></span><a class="headerlink" href="#models.Herd.families" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#models.Herd.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.species_name">
+<span class="sig-name descname"><span class="pre">species_name</span></span><a class="headerlink" href="#models.Herd.species_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Herd.updated_at">
+<span class="sig-name descname"><span class="pre">updated_at</span></span><a class="headerlink" href="#models.Herd.updated_at" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Observation">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">models.</span></span><span class="sig-name descname"><span class="pre">Observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/models.html#Observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#models.Observation" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Base</span></code></p>
+<p>SQLAlchemy model for an observation of a family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> -- Primary key.</p></li>
+<li><p><strong>family_id</strong> -- Foreign key to the family.</p></li>
+<li><p><strong>ts</strong> -- Timestamp of the observation.</p></li>
+<li><p><strong>latitude</strong> -- Latitude of the observation.</p></li>
+<li><p><strong>longitude</strong> -- Longitude of the observation.</p></li>
+<li><p><strong>location</strong> -- Geospatial point (PostGIS).</p></li>
+<li><p><strong>size</strong> -- Size of the family observed.</p></li>
+<li><p><strong>health_rating</strong> -- Health rating (1-10 scale).</p></li>
+<li><p><strong>observation_metadata</strong> -- Optional metadata.</p></li>
+<li><p><strong>family</strong> -- Relationship to Family object.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.family">
+<span class="sig-name descname"><span class="pre">family</span></span><a class="headerlink" href="#models.Observation.family" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.family_id">
+<span class="sig-name descname"><span class="pre">family_id</span></span><a class="headerlink" href="#models.Observation.family_id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.health_rating">
+<span class="sig-name descname"><span class="pre">health_rating</span></span><a class="headerlink" href="#models.Observation.health_rating" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#models.Observation.id" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.latitude">
+<span class="sig-name descname"><span class="pre">latitude</span></span><a class="headerlink" href="#models.Observation.latitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.location">
+<span class="sig-name descname"><span class="pre">location</span></span><a class="headerlink" href="#models.Observation.location" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.longitude">
+<span class="sig-name descname"><span class="pre">longitude</span></span><a class="headerlink" href="#models.Observation.longitude" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.observation_metadata">
+<span class="sig-name descname"><span class="pre">observation_metadata</span></span><a class="headerlink" href="#models.Observation.observation_metadata" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#models.Observation.size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Observation.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#models.Observation.ts" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py class" id="module-schemas">
 <dt class="sig sig-object py" id="schemas.Event">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">schemas.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/schemas.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#schemas.Event" title="Link to this definition"></a></dt>
@@ -492,6 +792,357 @@
 <span class="sig-name descname"><span class="pre">ts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#schemas.ObservationCreate.ts" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<p id="module-api.herds">Herds API endpoints.</p>
+<p>This module provides endpoints for managing wildlife herds and their observations.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>POST /api/herds</p></li>
+<li><p>GET /api/herds/{herd_id}</p></li>
+<li><p>GET /api/herds</p></li>
+<li><p>GET /api/herds/{herd_id}/observations</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.herds.create_herd">
+<span class="sig-prename descclassname"><span class="pre">api.herds.</span></span><span class="sig-name descname"><span class="pre">create_herd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herd</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#schemas.HerdCreate" title="schemas.HerdCreate"><span class="pre">HerdCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/herds.html#create_herd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.herds.create_herd" title="Link to this definition"></a></dt>
+<dd><p>Create a new herd. If a herd with the same species_name already exists, do not add it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>herd</strong> -- Herd creation data.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created Herd object.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If a herd with the same species_name already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.herds.get_all_herds">
+<span class="sig-prename descclassname"><span class="pre">api.herds.</span></span><span class="sig-name descname"><span class="pre">get_all_herds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/herds.html#get_all_herds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.herds.get_all_herds" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all herds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db</strong> -- Database session.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all Herd objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.herds.get_herd_observations">
+<span class="sig-prename descclassname"><span class="pre">api.herds.</span></span><span class="sig-name descname"><span class="pre">get_herd_observations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/herds.html#get_herd_observations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.herds.get_herd_observations" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all observations for a herd, optionally filtered by time range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>herd_id</strong> -- The ID of the herd.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start datetime for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End datetime for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Observation objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-api.families">Families API endpoints.</p>
+<p>This module provides endpoints for managing wildlife families, their metrics,
+events, and observations.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>GET /api/families/{family_id}/metrics</p></li>
+<li><p>POST /api/families</p></li>
+<li><p>GET /api/families/{family_id}</p></li>
+<li><p>GET /api/families</p></li>
+<li><p>GET /api/families/by-herd/{herd_id}</p></li>
+<li><p>POST /api/families/{family_id}/events</p></li>
+<li><p>POST /api/families/{family_id}/observations</p></li>
+<li><p>GET /api/families/{family_id}/observations</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.create_event">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">create_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#schemas.EventCreate" title="schemas.EventCreate"><span class="pre">EventCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#create_event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.create_event" title="Link to this definition"></a></dt>
+<dd><p>Create a new event for a family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family_id</strong> -- The ID of the family.</p></li>
+<li><p><strong>event</strong> -- Event creation data.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Success message.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If the family is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.create_family">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">create_family</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#schemas.FamilyCreate" title="schemas.FamilyCreate"><span class="pre">FamilyCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#create_family"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.create_family" title="Link to this definition"></a></dt>
+<dd><p>Create a new family. If a family with the same friendly_name already exists, do not add it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family</strong> -- Family creation data.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created Family object.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If herd_id is missing, herd does not exist, or family name already exists.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.create_observation">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">create_observation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#schemas.ObservationCreate" title="schemas.ObservationCreate"><span class="pre">ObservationCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#create_observation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.create_observation" title="Link to this definition"></a></dt>
+<dd><p>Create a new observation for a family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family_id</strong> -- The ID of the family.</p></li>
+<li><p><strong>observation</strong> -- Observation creation data.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Success message.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If the family is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.get_all_families">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">get_all_families</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#get_all_families"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.get_all_families" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all families.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>db</strong> -- Database session.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all Family objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.get_families_by_herd">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">get_families_by_herd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">herd_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#get_families_by_herd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.get_families_by_herd" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all families belonging to a specific herd.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>herd_id</strong> -- The ID of the herd.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Family objects in the herd.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If the herd is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.get_family">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">get_family</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#get_family"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.get_family" title="Link to this definition"></a></dt>
+<dd><p>Retrieve a family by its ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family_id</strong> -- The ID of the family to retrieve.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The Family object if found.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>HTTPException</strong> -- If the family is not found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.get_family_metrics">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">get_family_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#get_family_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.get_family_metrics" title="Link to this definition"></a></dt>
+<dd><p>Get time-series metrics (size, health) for a family.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family_id</strong> -- ID of the family.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start datetime for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End datetime for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of (timestamp, size, health_rating) tuples.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.families.get_family_observations">
+<span class="sig-prename descclassname"><span class="pre">api.families.</span></span><span class="sig-name descname"><span class="pre">get_family_observations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">family_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/families.html#get_family_observations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.families.get_family_observations" title="Link to this definition"></a></dt>
+<dd><p>Retrieve all observations for a family, optionally filtered by time range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>family_id</strong> -- The ID of the family.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start datetime for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End datetime for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Observation objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-api.observations">Observations API endpoints.</p>
+<p>This module provides endpoints for querying wildlife observations, including spatial queries.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>GET /api/observations/nearby</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.observations.get_nearby_observations">
+<span class="sig-prename descclassname"><span class="pre">api.observations.</span></span><span class="sig-name descname"><span class="pre">get_nearby_observations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_km</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/observations.html#get_nearby_observations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.observations.get_nearby_observations" title="Link to this definition"></a></dt>
+<dd><p>Get observations near a geographic point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> -- Latitude of the center point.</p></li>
+<li><p><strong>lng</strong> -- Longitude of the center point.</p></li>
+<li><p><strong>radius_km</strong> -- Search radius in kilometers.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start timestamp for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End timestamp for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of observation records as dicts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-api.events">Events API endpoints.</p>
+<p>This module provides endpoints for querying wildlife events, including spatial queries.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>GET /api/events/nearby</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.events.get_nearby_events">
+<span class="sig-prename descclassname"><span class="pre">api.events.</span></span><span class="sig-name descname"><span class="pre">get_nearby_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_km</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/events.html#get_nearby_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.events.get_nearby_events" title="Link to this definition"></a></dt>
+<dd><p>Get events near a geographic point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> -- Latitude of the center point.</p></li>
+<li><p><strong>lng</strong> -- Longitude of the center point.</p></li>
+<li><p><strong>radius_km</strong> -- Search radius in kilometers.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start timestamp for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End timestamp for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of event records as dicts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-api.overtime">Overtime API endpoints.</p>
+<p>This module provides endpoints for time-bucketed metrics for families and herds.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>GET /api/overtime</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.overtime.get_overtime_data">
+<span class="sig-prename descclassname"><span class="pre">api.overtime.</span></span><span class="sig-name descname"><span class="pre">get_overtime_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entity_type:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metrics:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start:</span> <span class="pre">~datetime.datetime</span> <span class="pre">=</span> <span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end:</span> <span class="pre">~datetime.datetime</span> <span class="pre">=</span> <span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bucket:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">Query(1</span> <span class="pre">day)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">~sqlalchemy.orm.session.Session</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/overtime.html#get_overtime_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.overtime.get_overtime_data" title="Link to this definition"></a></dt>
+<dd><p>Get time-bucketed metrics for families or herds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entity_type</strong> -- &quot;herd&quot; or &quot;family&quot;.</p></li>
+<li><p><strong>entity_id</strong> -- Comma separated entity IDs.</p></li>
+<li><p><strong>metrics</strong> -- Comma separated metrics: location,size,health.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start datetime for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End datetime for filtering.</p></li>
+<li><p><strong>bucket</strong> -- Time bucket size (e.g., &quot;1 day&quot;).</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of time-bucketed metric records.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-api.nearby">Nearby API endpoints.</p>
+<p>This module provides endpoints for spatial queries to find families near a location.</p>
+<dl class="simple">
+<dt>Endpoints:</dt><dd><ul class="simple">
+<li><p>GET /api/nearby/families</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.nearby.get_nearby_families">
+<span class="sig-prename descclassname"><span class="pre">api.nearby.</span></span><span class="sig-name descname"><span class="pre">get_nearby_families</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lng</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius_km</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(5)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/api/nearby.html#get_nearby_families"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#api.nearby.get_nearby_families" title="Link to this definition"></a></dt>
+<dd><p>Get families near a geographic point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> -- Latitude of the center point.</p></li>
+<li><p><strong>lng</strong> -- Longitude of the center point.</p></li>
+<li><p><strong>radius_km</strong> -- Search radius in kilometers.</p></li>
+<li><p><strong>start</strong> -- (Optional) Start timestamp for filtering.</p></li>
+<li><p><strong>end</strong> -- (Optional) End timestamp for filtering.</p></li>
+<li><p><strong>db</strong> -- Database session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of Family objects within the specified area and time range.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

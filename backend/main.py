@@ -54,19 +54,6 @@ app.include_router(overtime_router)
 app.include_router(nearby_router)
 
 
-def get_db():
-    """
-    Dependency that provides a database session.
-    Yields:
-        db (Session): SQLAlchemy session.
-    """
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
 def enable_timescale_and_postgis():
     """
     Enables PostGIS and TimescaleDB extensions if not already enabled.
