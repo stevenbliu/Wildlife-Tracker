@@ -2,6 +2,12 @@
 
 A full-stack system for tracking wildlife herds and families, visualizing their movements, and recording events and observations. The project is designed for rangers and researchers to monitor animal populations using geospatial and time-series data.
 
+Definitions: a Herd is composed of multiple Families of the same species. Rangers track the movements of Families.
+- For a given Herd, where has its Families been overtime?
+- For a given Family, where has it been overtime?
+- For a given Family, how has its size and health rating changed overtime?
+- For a given location, what Families have been nearby (even from different Herds)?
+- For a given location, what Events happened nearby (even from different Families/Herds)?
 ---
 
 ## Features
@@ -64,7 +70,7 @@ A full-stack system for tracking wildlife herds and families, visualizing their 
 
 1. **Clone the repository:**
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/stevenbliu/Gridware-Take-Home-Exercise-Wildlife.git
    cd Gridware-Take-Home-Exercise-Wildlife
    ```
 
