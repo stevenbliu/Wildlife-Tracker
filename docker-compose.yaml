@@ -41,6 +41,7 @@ services:
   #     - "2181:2181"
 
  # enable Kafka for message brokering. new versions of Kafka do not require Zookeeper
+ 
   kafka:
     image: bitnami/kafka:3.5
     ports:
@@ -59,14 +60,14 @@ services:
       - kafka-data:/bitnami/kafka
 
   kafka_consumer_worker:
-    build: ./kafka/consumer_worker  # Your consumer Dockerfile path
+    build: ./backend/kafka/consumer_worker  # Your consumer Dockerfile path
     depends_on:
       - kafka
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9093
 
   kafka_producer_tester:
-    build: ./kafka/consumer_worker  # Your consumer Dockerfile path
+    build: ./backend/kafka/consumer_worker  # Your consumer Dockerfile path
     depends_on:
       - kafka
     environment:
@@ -124,6 +125,7 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+
   locust:
     build: 
       context: ./locust
