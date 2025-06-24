@@ -29,8 +29,12 @@ from shapely.geometry import Point
 from typing import List, Optional
 from database import get_db
 
-from backend.kafka.producer import produce_event  # import your Kafka producer helper
+# from backend.kafka.producer import produce_event  # import your Kafka producer helper
+# from tasks.events import (
+#     retry_produce_event,
+# )  # import your Celery retry logic for Kafka events
 
+from backend.utils.kafka_helpers import safe_kafka_produce
 
 router = APIRouter(prefix="/api/families", tags=["Families"])
 
@@ -147,37 +151,28 @@ def get_families_by_herd(herd_id: int, db: Session = Depends(get_db)):
 # Event Endpoints
 
 
-@router.post("/{family_id}/events", status_code=status.HTTP_201_CREATED)
 def create_event(
     family_id: int, event: schemas.EventCreate, db: Session = Depends(get_db)
 ):
-    """
-    Create a new event for a family.
-
-    :param family_id: The ID of the family.
-    :param event: Event creation data.
-    :param db: Database session.
-    :return: Success message.
-    :raises HTTPException: If the family is not found.
-    """
     family = db.query(models.Family).filter(models.Family.id == family_id).first()
     if not family:
         raise HTTPException(status_code=404, detail="Family not found")
+
     event_data = event.dict()
     event_data["family_id"] = family_id
     event_data["location"] = from_shape(
         Point(event_data["longitude"], event_data["latitude"]), srid=4326
     )
-
-    if event_data.get("ts") is None:
+    if not event_data.get("ts"):
         event_data["ts"] = datetime.utcnow()
+
     db_event = models.Event(**event_data)
     db.add(db_event)
     db.commit()
+    db.refresh(db_event)
 
-    db.refresh(db_event)  # important to get ID and updated fields
-    # Produce Kafka event — send minimal data needed by consumers
-    produce_event(
+    # Send to Kafka (with fallback to Celery)
+    safe_kafka_produce(
         {
             "id": db_event.id,
             "family_id": db_event.family_id,
