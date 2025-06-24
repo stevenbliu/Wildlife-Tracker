@@ -79,6 +79,17 @@ services:
       - "6379:6379"
     restart: unless-stopped
 
+  celery:
+    build:
+      context: ./backend
+    command: celery -A celery_worker.celery_app worker --loglevel=info
+    depends_on:
+      - redis
+      - kafka
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+
   # elasticsearch:
   #   image: docker.elastic.co/elasticsearch/elasticsearch:8.9.0
   #   container_name: wildlife_elasticsearch
