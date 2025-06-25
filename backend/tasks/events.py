@@ -1,5 +1,5 @@
 from celery_worker import celery_app
-from kafka.producer import produce_event
+from messaging.producer_worker.producer import produce_event
 import logging
 
 logger = logging.getLogger(__name__)

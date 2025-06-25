@@ -34,7 +34,7 @@ from database import get_db
 #     retry_produce_event,
 # )  # import your Celery retry logic for Kafka events
 
-from backend.utils.kafka_helpers import safe_kafka_produce
+from utils.kafka_helpers import safe_kafka_produce
 
 router = APIRouter(prefix="/api/families", tags=["Families"])
 

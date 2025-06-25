@@ -2,15 +2,24 @@ import threading
 import json
 import logging
 from confluent_kafka import Consumer, KafkaException
+import os
 
+logging.basicConfig(
+    level=logging.DEBUG,  # 👈 DEBUG includes INFO, WARNING, ERROR, CRITICAL
+    format="%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
+)
 logger = logging.getLogger(__name__)
+
+bootstrap_servers = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")
 
 
 class KafkaConsumerSingleton:
     _instance = None
     _lock = threading.Lock()
 
-    def __new__(cls, bootstrap_servers="kafka:9092", group_id="my-group", topics=None):
+    def __new__(
+        cls, bootstrap_servers=bootstrap_servers, group_id="my-group", topics=None
+    ):
         if not cls._instance:
             with cls._lock:
                 if not cls._instance:
@@ -22,9 +31,9 @@ class KafkaConsumerSingleton:
                                 "group.id": group_id,
                                 "auto.offset.reset": "earliest",
                                 "enable.auto.commit": False,
-                                "value.deserializer": lambda v: json.loads(
-                                    v.decode("utf-8")
-                                ),
+                                # "value.deserializer": lambda v: json.loads(
+                                #     v.decode("utf-8")
+                                # ),
                                 # Add security configs here if needed
                             }
                         )
@@ -39,24 +48,33 @@ class KafkaConsumerSingleton:
         return cls._instance
 
     def poll(self, timeout=1.0):
-        """Poll messages from Kafka, returning None if no message"""
+        """
+        Poll a single message from Kafka and return the decoded message_dict along with original msg.
+        Returns (msg, message_dict) or (None, None) on error/timeout.
+        """
         msg = self.consumer.poll(timeout)
         if msg is None:
-            return None
+            return None, None
         if msg.error():
             logger.error(f"Consumer error: {msg.error()}")
-            return None
-        return msg
+            return None, None
+        try:
+            logger.debug(f"Received message polling: {msg}")
+            message_dict = json.loads(msg.value().decode("utf-8"))
+            return msg, message_dict
+        except Exception as e:
+            logger.error(f"Failed to parse Kafka message: {e}")
+            return None, None
 
     def consume_batch(self, num_messages=100, timeout=1.0):
         """
         Consume a batch of messages from Kafka.
 
-        Returns a list of valid messages (filters out errors).
+        Returns a list of tuples (msg, message_dict) with only valid messages.
         """
         try:
             messages = self.consumer.consume(num_messages=num_messages, timeout=timeout)
-            valid_msgs = []
+            results = []
 
             for msg in messages:
                 if msg is None:
@@ -64,9 +82,15 @@ class KafkaConsumerSingleton:
                 if msg.error():
                     logger.error(f"Kafka consumer error: {msg.error()}")
                     continue
-                valid_msgs.append(msg)
+                try:
+                    logger.debug(f"Received batch message: {msg}")
+                    message_dict = json.loads(msg.value().decode("utf-8"))
+                    results.append((msg, message_dict))
+                except Exception as e:
+                    logger.error(f"Failed to parse batch Kafka message: {e}")
+                    continue
 
-            return valid_msgs
+            return results
 
         except KafkaException as e:
             logger.error(f"Kafka batch consume failed: {e}")
@@ -90,3 +114,13 @@ class KafkaConsumerSingleton:
             logger.info("KafkaConsumer closed")
         except KafkaException as e:
             logger.error(f"Failed to close consumer: {e}")
+
+    def subscribe(self, topics):
+        try:
+            self.consumer.subscribe(topics)
+            logger.info(f"Subscribed to topics: {topics}")
+        except KafkaException as e:
+            logger.error(f"Failed to subscribe to topics {topics}: {e}")
+
+    def assign(self, partitions):
+        self.consumer.assign(partitions)

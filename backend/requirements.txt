@@ -39,3 +39,8 @@ uvloop==0.21.0
 watchfiles==1.0.5
 websockets==15.0.1
 wheel==0.45.1
+celery==5.5.3
+redis==4.6.0
+kafka-python>=2.0.2
+confluent_kafka==2.3.0  # Or latest stable version
+

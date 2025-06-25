@@ -1,5 +1,5 @@
 import logging
-from kafka.producer import produce_event
+from messaging.producer_worker.producer import produce_event
 from tasks.events import retry_produce_event
 
 logger = logging.getLogger(__name__)
