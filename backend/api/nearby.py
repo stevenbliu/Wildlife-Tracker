@@ -21,7 +21,7 @@ from shapely.geometry import Point
 from typing import List, Optional
 from database import get_db
 
-router = APIRouter(prefix="/api/nearby", tags=["Nearby"])
+router = APIRouter(prefix="/nearby", tags=["Nearby"])
 
 
 @router.get("/families", response_model=List[schemas.Family])

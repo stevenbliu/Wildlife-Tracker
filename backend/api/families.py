@@ -36,7 +36,7 @@ from database import get_db
 
 from utils.kafka_helpers import safe_kafka_produce
 
-router = APIRouter(prefix="/api/families", tags=["Families"])
+router = APIRouter(prefix="/families", tags=["Families"])
 
 
 @router.get("/{family_id}/metrics")

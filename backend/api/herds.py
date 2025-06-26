@@ -17,7 +17,7 @@ from database import get_db
 from typing import List
 from datetime import datetime
 
-router = APIRouter(prefix="/api/herds", tags=["Herds"])
+router = APIRouter(prefix="/herds", tags=["Herds"])
 
 
 @router.post("", response_model=schemas.Herd, status_code=status.HTTP_201_CREATED)

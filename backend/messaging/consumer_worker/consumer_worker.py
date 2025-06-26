@@ -112,7 +112,7 @@ def start_kafka_event_consumer(batch_mode=True, batch_size=100, batch_timeout=2.
                             db.commit()
 
                         consumer.commit()  # commit offsets for whole batch
-                        logger.info(f"Committed offsets for {len(buffer)} messages")
+                        # logger.info(f"Committed offsets for {len(buffer)} messages")
                         buffer.clear()
                         last_batch_time = now
 

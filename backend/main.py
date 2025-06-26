@@ -35,7 +35,12 @@ from api.nearby import router as nearby_router
 # Base.metadata.drop_all(bind=engine)  # Remove this in production
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="WildlifeTracker API")
+app = FastAPI(
+    root_path="/api",
+    docs_url="/docs",
+    openapi_url="/openapi.json",
+    title="WildlifeTracker API",
+)
 
 # Add CORS middleware
 app.add_middleware(
@@ -83,7 +88,7 @@ def startup_event():
     print("PostGIS and TimescaleDB extensions enabled.")
 
 
-@app.get("/api/test_db/", status_code=status.HTTP_200_OK)
+@app.get("/test_db/", status_code=status.HTTP_200_OK)
 def test_db_connection():
     """
     Health check endpoint for database connectivity.

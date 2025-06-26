@@ -16,4 +16,4 @@ from datetime import datetime
 from geoalchemy2.shape import from_shape
 from sqlalchemy import text
 
-router = APIRouter(prefix="/api/events", tags=["Events"])
+router = APIRouter(prefix="/events", tags=["Events"])

@@ -21,7 +21,7 @@ from shapely.geometry import Point
 from typing import List, Optional
 from database import get_db
 
-router = APIRouter(prefix="/api/overtime", tags=["Overtime"])
+router = APIRouter(prefix="/overtime", tags=["Overtime"])
 
 
 # Define valid metrics for the /overtime endpoint

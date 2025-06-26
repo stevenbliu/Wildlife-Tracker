@@ -82,3 +82,5 @@ def produce_event_to_dlq(raw_message, reason: str):
         logger.debug(f"Sent message to DLQ: {decoded_raw_message} due to {reason}")
     except Exception as e:
         logger.error(f"Failed to send Kafka message to events.DLQ: {e}")
+    # finally:
+    # consumer.commit()  # Commit after sending to DLQ
