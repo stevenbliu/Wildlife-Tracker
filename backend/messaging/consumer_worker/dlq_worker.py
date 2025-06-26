@@ -10,7 +10,7 @@ consumer.subscribe(["events.DLQ"])
 
 while True:
     msg = consumer.poll(10.0)
-    logger.debug(f"Polled message: {msg}")
+    # logger.debug(f"Polled message: {msg}")
     if msg is None:
         continue
     if msg == (None, None):

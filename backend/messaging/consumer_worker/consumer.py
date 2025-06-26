@@ -4,10 +4,10 @@ import logging
 from confluent_kafka import Consumer, KafkaException
 import os
 
-logging.basicConfig(
-    level=logging.DEBUG,  # 👈 DEBUG includes INFO, WARNING, ERROR, CRITICAL
-    format="%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
-)
+# logging.basicConfig(
+#     level=logging.DEBUG,  # 👈 DEBUG includes INFO, WARNING, ERROR, CRITICAL
+#     format="%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
+# )
 logger = logging.getLogger(__name__)
 
 bootstrap_servers = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "kafka:9092")

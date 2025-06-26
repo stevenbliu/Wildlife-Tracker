@@ -26,6 +26,8 @@ Definitions: a Herd is composed of multiple Families of the same species. Ranger
 
 ---
 
+# Site Preview
+![Website Preview Image](WebsitePreview.png)
 
 ## Diagram
 ![System Diagram Image](WildlifeTrackerDiagram6-26-25.svg)

@@ -14,10 +14,10 @@ from shapely.geometry import Point
 from geoalchemy2.shape import from_shape
 from datetime import datetime, timezone
 
-logging.basicConfig(
-    level=logging.DEBUG,  # Or DEBUG if you want more verbosity
-    format="%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
-)
+# logging.basicConfig(
+#     level=logging.DEBUG,  # Or DEBUG if you want more verbosity
+#     format="%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
+# )
 logger = logging.getLogger(__name__)
 
 
