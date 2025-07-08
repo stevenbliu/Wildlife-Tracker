@@ -75,7 +75,7 @@ topic_processors = {
 
 
 def start_kafka_event_consumer(batch_mode=True, batch_size=100, batch_timeout=2.0):
-    consumer = KafkaConsumerSingleton(topics=["events", "observations"])
+    consumer = KafkaConsumerSingleton(topics=["events"])
     logger.info(
         f"Starting Kafka event consumer loop in {'batch' if batch_mode else 'single-message'} mode"
     )

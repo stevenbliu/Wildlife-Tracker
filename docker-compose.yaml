@@ -4,7 +4,10 @@ services:
   postgres:
     # Postges with TimescaleDB extension and PostGIS
     # Using TimescaleDB for time-series data and PostGIS for geospatial data
-    image: timescale/timescaledb-ha:pg15.13-ts2.20.1
+    # image: timescale/timescaledb-ha:pg15.13-ts2.20.1
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
     container_name: wildlife_postgres
     environment:
       POSTGRES_USER: user
@@ -43,7 +46,10 @@ services:
  # enable Kafka for message brokering. new versions of Kafka do not require Zookeeper
  
   kafka:
-    image: bitnami/kafka:3.5
+    # image: bitnami/kafka:3.5
+    build:
+      context: ./kafka
+      dockerfile: Dockerfile
     ports:
       - "9092:9092"
     environment:
@@ -93,7 +99,10 @@ services:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
 
   redis:
-    image: redis:7
+    # image: redis:7
+    build:
+      context: ./redis
+      dockerfile: Dockerfile
     ports:
       - "6379:6379"
     restart: unless-stopped
