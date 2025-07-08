@@ -7,7 +7,7 @@ ENV POSTGRES_USER=user \
     POSTGRES_DB=wildlife
 
 # Copy any custom initialization scripts (SQL, sh, etc.)
-COPY init-scripts/ /docker-entrypoint-initdb.d/
+COPY init-scripts /docker-entrypoint-initdb.d/
 
 # Optional: Copy a custom PostgreSQL configuration file
 COPY ./postgresql.conf /etc/postgresql/postgresql.conf:ro
